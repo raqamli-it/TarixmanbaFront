@@ -17,7 +17,7 @@ jobs:
         run: |
           docker build -t tarixmanba-front .
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker tag jadidlar-front userhubdocker1/tarixmanba-front
+          docker tag tarixmanba-front userhubdocker1/tarixmanba-front
           docker push userhubdocker1/tarixmanba-front
 
       - name: Disable strict host key checking
