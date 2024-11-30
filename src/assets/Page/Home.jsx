@@ -1,15 +1,15 @@
-import React from 'react'
-import Acardion from '../Components/Home/Acardion'
-import HomeCardsArchi from '../Components/Home/HomeCardsArchi'
-import HomeCardMedia from '../Components/Home/HomeCardMedia'
-// import Shu from '../Components/component/Shu'
-// import DemoShablon from './DemoShablon'
-import MapComponent from '../Components/component/MapComponent'
-import HomeSliderLib from '../Components/Home/HomeSliderLib'
-import LoaderCard from '../Components/component/LoaderCard'
-import Tabs from '../Components/component/Tabs'
-import BigMaps from '../Components/Home/TabsWithMap'
-import Namuna from '../Components/component/Namuna'
+import React from 'react';
+import Acardion from '../Components/Home/Acardion';
+import HomeCardsArchi from '../Components/Home/HomeCardsArchi';
+// import HomeCardMedia from '../Components/Home/HomeCardMedia'
+// // import Shu from '../Components/component/Shu'
+// // import DemoShablon from './DemoShablon'
+// import MapComponent from '../Components/component/MapComponent'
+// import HomeSliderLib from '../Components/Home/HomeSliderLib'
+// import LoaderCard from '../Components/component/LoaderCard'
+// import Tabs from '../Components/component/Tabs'
+// import BigMaps from '../Components/Home/TabsWithMap'
+// import Namuna from '../Components/component/Namuna'
 
 export default function Home() {
   return (
@@ -19,10 +19,8 @@ export default function Home() {
       {/* <Tabs /> */}
       {/* <BigMaps /> */}
 
-
       {/* <Namuna /> */}
       <HomeCardsArchi />
-
 
       {/* <HomeCardsFolkArt />
         <HomeCardsLetter />
@@ -47,12 +45,6 @@ export default function Home() {
       {/* <ViewKop /> */}
       {/*  */}
       {/* <HomeSliderLib /> */}
-
-
-
-
-
-
     </main>
-  )
+  );
 }

@@ -1,6 +1,24 @@
+
+@import "./genral.scss";
+@import "./scss/theme";
+@import "./scss/layout";
+@import "./scss/weather";
+@import "./scss/header";
+@import "./scss/login";
+@import "./scss/news";
+@import "./scss/libraryCatigory";
+@import "./scss/bigCardFilter";
+@import "./scss/filter";
+@import "./scss/_namuna.css";
+
+@import "./home/acardion";
+// @import "./home/mapsHome";
+@import "./home/homeCardsArchi";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer utilities {
   .bg-custom {
     background-image: url("https://www.gazeta.uz/media/img/2021/05/YCZaUC16224677848977_b.jpg"),
@@ -44,18 +62,3 @@
   @apply visible z-50;
 }
 
-@import "./genral.scss";
-@import "./scss/theme";
-@import "./scss/layout";
-@import "./scss/weather";
-@import "./scss/header";
-@import "./scss/login";
-@import "./scss/news";
-@import "./scss/libraryCatigory";
-@import "./scss/bigCardFilter";
-@import "./scss/filter";
-@import "./scss/_namuna.css";
-
-@import "./home/acardion";
-// @import "./home/mapsHome";
-@import "./home/homeCardsArchi";
