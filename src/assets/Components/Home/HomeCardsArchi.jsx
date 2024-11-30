@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useState, useEffect } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Pagination, Navigation } from "swiper/modules";
-import { Link } from "react-router-dom";
-import bgPattern from "../../../assets/img/bg_pattern.png";
-import { DataService } from "../../config/dataService";
-import { endpoints } from "../../config/endpoints";
-
-
+import { Pagination, Navigation } from 'swiper/modules';
+import { Link } from 'react-router-dom';
+import bgPattern from '../../../assets/img/bg_pattern.png';
+import { DataService } from '../../config/dataService';
+import { endpoints } from '../../config/endpoints';
 
 export default function HomeCardsArchi() {
   const [apiData, setApiData] = useState([]);
@@ -19,11 +17,9 @@ export default function HomeCardsArchi() {
       const response = await DataService.get(endpoints.categoryApi_list);
 
       setApiData(response);
-      console.error("card archi archi !!!!!!!!!!!! :", response.results
-      );
-
+      console.error('card archi archi !!!!!!!!!!!! :', response.results);
     } catch (error) {
-      console.error("Error fetching category data:", error);
+      console.error('Error fetching category data:', error);
     }
   };
 
@@ -35,8 +31,8 @@ export default function HomeCardsArchi() {
     <div className="archi_bg">
       <div className="home__card__container">
         <div className="home__wrapper">
-          {apiData?.results?.map((categoryApi, i) => (
-            categoryApi?.resources?.results?.length > 0 ?
+          {apiData?.results?.map((categoryApi, i) =>
+            categoryApi?.resources?.results?.length > 0 ? (
               // 1 > 0 ?
               <div key={categoryApi?.id}>
                 <div className="home__cards__title">
@@ -56,34 +52,51 @@ export default function HomeCardsArchi() {
                   modules={[Pagination, Navigation]}
                   className="mySwiper"
                 >
-                  {categoryApi?.resources?.results?.map((cat, i) => (
-                    i < 6 ?
-                      < SwiperSlide key={cat?.id} >
+                  {categoryApi?.resources?.results?.map((cat, i) =>
+                    i < 6 ? (
+                      <SwiperSlide key={cat?.id}>
                         <div className="home-car-card">
                           <article className="card__article-car">
-                            <img src={cat?.image} alt="image" onError={(e) => {
-                              e.target.src = "http://raqamli.tarixmanba.uz/media/media/images/resource/1.jpg"; // Xatolik bo'lsa, tasvirni almashtirish
-                            }} className="card__img-car bg-black" />
+                            <img
+                              src={cat?.image}
+                              alt="image"
+                              onError={(e) => {
+                                e.target.src =
+                                  'http://backend.tarixmanba.uz/media/media/images/resource/1.jpg'; // Xatolik bo'lsa, tasvirni almashtirish
+                              }}
+                              className="card__img-car bg-black"
+                            />
                             <div className="card__data-car">
                               {/* <span className="card__description-car">Vancouver Mountains, Canada</span> */}
-                              <h2 className="card__title-car  line-clamp-2">{cat?.title}</h2>
-                              <Link className="card__button-car" to={`/cardDetail/${cat.id}`}>Batafsil</Link>
+                              <h2 className="card__title-car  line-clamp-2">
+                                {cat?.title}
+                              </h2>
+                              <Link
+                                className="card__button-car"
+                                to={`/cardDetail/${cat.id}`}
+                              >
+                                Batafsil
+                              </Link>
                             </div>
                           </article>
                         </div>
-                      </SwiperSlide> : ""
-                  ))}
+                      </SwiperSlide>
+                    ) : (
+                      ''
+                    ),
+                  )}
                 </Swiper>
               </div>
-              : ""
-          ))}
+            ) : (
+              ''
+            ),
+          )}
         </div>
 
         <div className="Left_pattern">
           <img src={bgPattern} alt="" />
         </div>
       </div>
-    </div >
+    </div>
   );
 }
-
