@@ -42,12 +42,16 @@ jobs:
             # Pull the latest Docker image
             docker pull userhubdocker1/tarixmanba-front-2
 
-            # Stop and remove any existing container
-            docker stop tarixmanba-front-container-2 || true
-            docker rm tarixmanba-front-container-2 || true
-
-            # Run a new container with the specified volume and port
             docker run --name tarixmanba-front-container-2 \
               -v /home/Tarix_manba/media:/app/media \
               -d -p 5400:5400 userhubdocker1/tarixmanba-front-2
           EOF
+            # Stop and remove any existing container
+#            docker stop tarixmanba-front-container-2 || true
+#            docker rm tarixmanba-front-container-2 || true
+
+            # Run a new container with the specified volume and port
+#            docker run --name tarixmanba-front-container-2 \
+#              -v /home/Tarix_manba/media:/app/media \
+#              -d -p 5400:5400 userhubdocker1/tarixmanba-front-2
+#          EOF
