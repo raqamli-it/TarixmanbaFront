@@ -29,13 +29,25 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
+          # Prepare the SSH private key
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+
+          # Add the server to known hosts to prevent SSH prompts
           ssh-keyscan -H 93.188.84.132 >> ~/.ssh/known_hosts
-          ssh -T -i ~/.ssh/id_rsa root@93.188.84.132 << EOF
+
+          # SSH into the server and deploy the Docker container
+          ssh -T -i ~/.ssh/id_rsa root@93.188.84.132 << 'EOF'
+            # Pull the latest Docker image
             docker pull userhubdocker1/tarixmanba-front-2
+
+            # Stop and remove any existing container
             docker stop tarixmanba-front-container-2 || true
             docker rm tarixmanba-front-container-2 || true
-            docker run --name tarixmanba-front-container-2  -v /home/Tarix_manba/media:/app/media -d -p 5400:5400 userhubdocker1/tarixmanba-front-2
+
+            # Run a new container with the specified volume and port
+            docker run --name tarixmanba-front-container-2 \
+              -v /home/Tarix_manba/media:/app/media \
+              -d -p 5400:5400 userhubdocker1/tarixmanba-front-2
           EOF
