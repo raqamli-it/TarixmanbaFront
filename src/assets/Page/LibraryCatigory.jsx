@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { IoBookOutline } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
-import { motion, useMotionValueEvent } from "framer-motion";
-import { useScroll } from "framer-motion";
-import { DataService } from "../config/dataService";
-import { endpoints } from "../config/endpoints";
-import Breadcrumb from "../Components/component/Breadcrumb";
+import React, { useEffect, useState } from 'react';
+import { IoBookOutline } from 'react-icons/io5';
+import { Link, useNavigate } from 'react-router-dom';
+import { motion, useMotionValueEvent } from 'framer-motion';
+import { useScroll } from 'framer-motion';
+import { DataService } from '../config/dataService';
+import { endpoints } from '../config/endpoints';
+import Breadcrumb from '../Components/component/Breadcrumb';
 
 export default function () {
   const navigate = useNavigate();
   const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
+  useMotionValueEvent(scrollY, 'change', (latest) => {
     // console.log("Page scroll: ", latest);
   });
 
@@ -19,20 +19,18 @@ export default function () {
   const [apiData, setApiData] = useState();
   const fetchData = async () => {
     const response = await DataService.get(endpoints.libraryCategory);
-    console.log(response.results, "libCategoryssss");
+    console.log(response.results, 'libCategoryssss');
     setApiData(response);
-    let x = document.querySelector("title");
+    let x = document.querySelector('title');
     x.textContent = `Aqilly ktubxona `;
   };
   useEffect(() => {
     fetchData();
   }, []);
 
-
-
   // ҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳ
 
-  const [activeButton, setActiveButton] = useState("Product Updates");
+  const [activeButton, setActiveButton] = useState('Product Updates');
 
   const handleButtonClick = (button) => {
     setActiveButton(button);
@@ -40,70 +38,13 @@ export default function () {
 
   const buttonClass = (button) =>
     activeButton === button
-      ? "px-4 py-2 bg-black text-white font-semibold rounded-full"
-      : "px-4 py-2 bg-gray-100 text-black font-semibold rounded-full";
-
-
-
+      ? 'px-4 py-2 bg-black text-white font-semibold rounded-full'
+      : 'px-4 py-2 bg-gray-100 text-black font-semibold rounded-full';
 
   return (
     <>
       <div className="container-hero">
-        <Breadcrumb catigory="Kutubxona" deteil="" link='' />
-
-
-
-
-
-        {/* <div className="libraryCont">
-          <div className="backGroundLib">
-            <motion.h1
-              className="loders-h1"
-              initial={{ scale: 1, x: 0 }}
-              animate={{ x: 250, scale: 1.1 }}
-              transition={{
-                type: "spring",
-                stiffness: 260,
-                damping: 80,
-              }}
-            >
-              TARIXIY QO'LYOZMALAR VA <br /> NODIR ASARLAR
-            </motion.h1>
-          </div>
-          <div className="libCardCont">
-            {apiData?.results?.map((libCategory) => (
-              <Link
-                className="linkLib"
-                to={`/libraryDetail/${libCategory.id}`}
-                key={libCategory.id}
-              >
-                <div className="libraryCard">
-                  <div className="iconLib">
-                    <img
-                      src="https://baburid.uz/front/img/library/icon_1.png"
-                      alt="icon"
-                    />
-                  </div>
-                  <h3>{libCategory.title}</h3>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="moreLib">
-            <IoBookOutline /> Barchasi
-          </div>
-        </div>
-        <div className="library_pattern1">
-          <img
-            src="https://png.pngtree.com/png-clipart/20220909/original/pngtree-luxury-mandala-circle-frame-transparent-with-vintage-gold-circular-pattern-png-image_8503769.png"
-            alt=""
-          />
-        </div> */}
-
-        {/* <p>Shosh va Movoronnahr hudularidagi qo'l yozma asarlar</p> */}
-
-
+        <Breadcrumb catigory="Kutubxona" deteil="" link="" />
 
         <section>
           {/* Container */}
@@ -119,26 +60,26 @@ export default function () {
               {/* Buttons */}
               <div className="my-10 md:my-20 flex flex-col md:flex-row justify-center gap-3">
                 <button
-                  className={buttonClass("Engaging Articles")}
-                  onClick={() => handleButtonClick("Engaging Articles")}
+                  className={buttonClass('Engaging Articles')}
+                  onClick={() => handleButtonClick('Engaging Articles')}
                 >
                   katigorya 1
                 </button>
                 <button
-                  className={buttonClass("Product Updates")}
-                  onClick={() => handleButtonClick("Product Updates")}
+                  className={buttonClass('Product Updates')}
+                  onClick={() => handleButtonClick('Product Updates')}
                 >
                   katigorya 2
                 </button>
                 <button
-                  className={buttonClass("Reflex Workflows")}
-                  onClick={() => handleButtonClick("Reflex Workflows")}
+                  className={buttonClass('Reflex Workflows')}
+                  onClick={() => handleButtonClick('Reflex Workflows')}
                 >
                   katigorya 3
                 </button>
                 <button
-                  className={buttonClass("Artificial Intelligence")}
-                  onClick={() => handleButtonClick("Artificial Intelligence")}
+                  className={buttonClass('Artificial Intelligence')}
+                  onClick={() => handleButtonClick('Artificial Intelligence')}
                 >
                   katigorya 4
                 </button>
@@ -155,7 +96,6 @@ export default function () {
                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtkyVEQXHNYiPAiP1WX5N5Dw8eW89g5-Jeiw&s"
                       alt=""
                     />
-
                   </div>
                   <div className="p-4 flex justify-between items-center">
                     <div>
@@ -207,7 +147,6 @@ export default function () {
                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvVckFqF3CiL0i_zbXL-gYmBneBmQTn41-0Q&s"
                       alt=""
                     />
-
                   </div>
                   <div className="p-4 flex justify-between items-center">
                     <div>
@@ -261,15 +200,14 @@ export default function () {
                       src="https://firebasestorage.googleapis.com/v0/b/flowspark-1f3e0.appspot.com/o/Tailspark%20Images%2FPlaceholder%20Image.svg?alt=media&token=375a1ea3-a8b6-4d63-b975-aac8d0174074"
                       alt=""
                     />
-
                   </div>
                   <div className="p-4">
                     <h2 className="text-lg font-semibold mt-2">
                       Here is the title for this News
                     </h2>
                     <p className="text-gray-500">
-                      We make every expression of Hero Spirits with precision and
-                      passion
+                      We make every expression of Hero Spirits with precision
+                      and passion
                     </p>
                   </div>
                 </div>
@@ -281,15 +219,14 @@ export default function () {
                       src="https://firebasestorage.googleapis.com/v0/b/flowspark-1f3e0.appspot.com/o/Tailspark%20Images%2FPlaceholder%20Image.svg?alt=media&token=375a1ea3-a8b6-4d63-b975-aac8d0174074"
                       alt=""
                     />
-
                   </div>
                   <div className="p-4">
                     <h2 className="text-lg font-semibold mt-2">
                       Here is the title for this News
                     </h2>
                     <p className="text-gray-500">
-                      We make every expression of Hero Spirits with precision and
-                      passion
+                      We make every expression of Hero Spirits with precision
+                      and passion
                     </p>
                   </div>
                 </div>
@@ -301,15 +238,14 @@ export default function () {
                       src="https://firebasestorage.googleapis.com/v0/b/flowspark-1f3e0.appspot.com/o/Tailspark%20Images%2FPlaceholder%20Image.svg?alt=media&token=375a1ea3-a8b6-4d63-b975-aac8d0174074"
                       alt=""
                     />
-
                   </div>
                   <div className="p-4">
                     <h2 className="text-lg font-semibold mt-2">
                       Here is the title for this News
                     </h2>
                     <p className="text-gray-500">
-                      We make every expression of Hero Spirits with precision and
-                      passion
+                      We make every expression of Hero Spirits with precision
+                      and passion
                     </p>
                   </div>
                 </div>
@@ -324,8 +260,6 @@ export default function () {
             </div>
           </div>
         </section>
-
-
       </div>
     </>
   );
