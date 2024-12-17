@@ -15,7 +15,7 @@ export default function Acardion() {
       setApiData(data);
       console.log(data, "wwwwwwwwwwwwwwwwwwwwwwwwwwwww");
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching data:", error); 
     }
   };
   /////////////////////// api end
