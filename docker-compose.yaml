@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  app-front:
+    image: tarixmanba-front-image
+    build: .
+    container_name: tarixmanba-front-new
+    ports:
+      - "5011:5173"
+    restart: always
+    environment:
+      - TZ=Asia/Tashkent
+    networks:
+      - tarix
+networks:
+  tarix:
+    name: tarix
+    external: true
