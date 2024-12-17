@@ -25,7 +25,6 @@ import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
 // //////// Motion end
 
-
 //////////// Calendar
 import ReactDatePicker from "../component/ReactDatePicker";
 /////////// Ob-havo
@@ -37,15 +36,14 @@ import { endpoints } from "../../config/endpoints";
 
 /////////// Api service end
 
-
 export default function Header() {
   ///////// Api ulangan joy
   const [apiData, setApiData] = useState([]);
   const fetchData = async () => {
     try {
       const response = await DataService.get(endpoints.categoryResourceApi);
-      console.log("Manba  catigory Header dan ", response);
       setApiData(response);
+      console.log(response, "Manba  catigory Header dan ");
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -54,8 +52,6 @@ export default function Header() {
   useEffect(() => {
     fetchData();
   }, []);
-
-
 
   ///////// hijriy
   const [hijriList, setHijriList] = useState({ year: "", day: "", month: "" });
@@ -67,7 +63,6 @@ export default function Header() {
   useEffect(() => {
     document.querySelector("body").style.overflow = showDRB ? "hidden" : "auto";
   }, [showDRB]);
-
 
   const valRef = useRef(null);
   const valRefLogin = useRef(null);
@@ -89,6 +84,8 @@ export default function Header() {
     }
   };
 
+  console.log(apiData, "kkkkkkkkkkkkkkkkkkkk");
+
   const handleClickOutsideMax = (event) => {
     if (valRefMax.current && !valRefMax.current.contains(event.target)) {
       setMaxDrop(false);
@@ -107,7 +104,6 @@ export default function Header() {
     };
   }, []);
 
-
   // live time code
   useEffect(() => {
     // setTime(new Date())
@@ -116,9 +112,7 @@ export default function Header() {
     }, 1000); // Har bir soniyada yangilanadi
 
     return () => clearInterval(intervalId); // Intervalni tozalas
-
-
-  })
+  });
   return (
     <header>
       <div className="header-top-box">
@@ -134,6 +128,7 @@ export default function Header() {
           </div>
         </div>
 
+
         <div className="ob-havo">
           <Weather />
         </div>
@@ -145,7 +140,7 @@ export default function Header() {
               type="text"
               placeholder="Izlash"
               required
-            />{" "}
+            />
             <span className="search-btn">
               <IoIosSearch />
             </span>
@@ -153,8 +148,6 @@ export default function Header() {
           <div className="functionale">
             {/* ////////////////////////////////////////////////////////// menu bar  */}
             <div className="ham-menu">
-              {" "}
-
               <CgMenuRightAlt
                 className="hamburger"
                 onClick={() => setShowDRB(!showDRB)}
@@ -170,23 +163,27 @@ export default function Header() {
                   damping: 70,
                 }}
               >
-
                 <ul className="bar-menu-list">
                   <li className="close-drop-bar-menu">
-                    <IoClose onClick={() => setShowDRB(!showDRB)} className="close-icon" />
+                    <IoClose
+                      onClick={() => setShowDRB(!showDRB)}
+                      className="close-icon"
+                    />
                     <p>{time.toLocaleTimeString()}</p>
                     {/* <div className="user">
                       <FaUserAlt /> Shaxsiy kabinet
                     </div> */}
                   </li>
 
-                  <li className="bar-list-item wather-item-cont" >
+                  <li className="bar-list-item wather-item-cont">
                     <Weather />
                   </li>
+
                   <li className="ham-calendar">
                     {/* ////////////////////////////////////////////////////////////////////////////////////////// */}
                     <ReactDatePicker />
                   </li>
+
                   <li className="bar-list-item search-item-cont">
                     <form>
                       <input
@@ -194,7 +191,7 @@ export default function Header() {
                         type="text"
                         name="search"
                         id="search-bar"
-                      />{" "}
+                      />
                       <button className="bar-src-btn">Qidruv</button>
                     </form>
                   </li>
@@ -205,6 +202,8 @@ export default function Header() {
                   >
                     <span>Manbalar</span>
                   </li>
+
+
                   <motion.li
                     className="bar-list-item-manba"
                     style={{ display: showManba ? "block" : "none" }}
@@ -223,41 +222,64 @@ export default function Header() {
                             <Link
                               className="bar-drop-link"
                               to={`/sources/archive/${categoryResurs.id}`}
-                              onClick={() => { setShowDRB(!showDRB), console.log('tayoini kor1', typeof categoryResurs.id); }}
+                              onClick={() => {
+                                setShowDRB(!showDRB),
+                                  console.log(
+                                    "tayoini kor1",
+                                    typeof categoryResurs.id
+                                  );
+                              }}
                             >
-                              {" "}
                               {/* <TbBuildingCastle /> */}
-                              <img className="w-[25px] h-[20px]  object-cover m-[2px]" src={categoryResurs.icon} alt="" />
+                              <img
+                                className="w-[25px] h-[20px]  object-cover m-[2px]"
+                                src={categoryResurs.icon}
+                                alt=""
+                              />
 
-                              <span className="text-matn-color"> {categoryResurs.title}</span>
+                              <span className="text-matn-color">
+                                {categoryResurs.title}
+                              </span>
                             </Link>
-                          </li>))
+                          </li>
+                        ))
                       ) : (
                         <p>No data available</p>
                       )}
                     </ul>
                   </motion.li>
+
                   <li className="bar-list-item-menu">
-                    <Link className="text-matn-color" to="/library">Kutubxona</Link>
-                  </li>
-                  <li className="bar-list-item-menu">
-                    <Link className="text-matn-color" to="/news">Yangiliklar</Link>{" "}
+                    <Link className="text-matn-color" to="/library">
+                      Kutubxona
+                    </Link>
                   </li>
 
                   <li className="bar-list-item-menu">
-                    <Link className="text-matn-color" to="/aboutus">Biz haqimizda</Link>
+                    <Link className="text-matn-color" to="/news">
+                      Yangiliklar
+                    </Link>{" "}
+                  </li>
+
+                  <li className="bar-list-item-menu">
+                    <Link className="text-matn-color" to="/aboutus">
+                      Biz haqimizda
+                    </Link>
                   </li>
                   <li className="bar-list-item-menu">
-                    <Link className="text-matn-color" to="/login">Login</Link>
+                    <Link className="text-matn-color" to="/login">
+                      Login
+                    </Link>
                   </li>
                 </ul>
-
               </motion.div>
             </div>{" "}
             {/* menu bar- end  */}
           </div>
         </div>
       </div>
+
+
       <nav>
         <div className="nav-box">
           <div
@@ -276,7 +298,6 @@ export default function Header() {
                 damping: 50,
               }}
             >
-              {" "}
               <IoIosArrowUp />
             </motion.div>
             <motion.ul
@@ -303,14 +324,19 @@ export default function Header() {
                       to={`/sources/archive/${categoryResurs.id}`}
                     >
                       {/* <TbBuildingCastle /> */}
-                      <img className="w-[25px] h-[20px]  object-cover m-[2px]" src={categoryResurs.icon} alt="" />
+                      <img
+                        className="w-[25px] h-[20px]  object-cover m-[2px]"
+                        src={categoryResurs.icon}
+                        alt="img"
+                      />
+
                       <span
                       // onClick={() =>
                       //   navigate(`/sources/archive/${categoryResurs.id}`)
                       // }
                       >
-                        {" "}
-                        {categoryResurs.title}
+                        {categoryResurs.title}{" "}
+                        <span>{`/sources/archive/${categoryResurs.id}`}</span>
                       </span>
                     </Link>
                   </motion.li>
@@ -333,9 +359,12 @@ export default function Header() {
           </div>
 
           <div className="nav-menu">
-            <Link className="link" to="/aboutus">Biz haqimizda</Link>
+            <Link className="link" to="/aboutus">
+              Biz haqimizda
+            </Link>
           </div>
-          <div className="nav-menu nav-login"
+          <div
+            className="nav-menu nav-login"
             onClick={() => {
               setLoginDrop(!loginDrop);
             }}
@@ -350,9 +379,9 @@ export default function Header() {
                 damping: 50,
               }}
             >
-              {" "}
               <IoIosArrowUp />
             </motion.div>
+
 
             <motion.ul
               className={loginDrop ? "menu-login" : ""}
@@ -377,7 +406,9 @@ export default function Header() {
                 className="login-item"
                 whileHover={{ x: 7, opacity: 0.5 }}
               >
-                <Link className="nav-login-link" to='/register'>Registratsiya</Link>
+                <Link className="nav-login-link" to="/register">
+                  Registratsiya
+                </Link>
               </motion.li>
             </motion.ul>
           </div>
@@ -431,7 +462,6 @@ export default function Header() {
         </div>
       </Marquee>
       {/* ////////////////////////////////////////////////////////Lenta end */}
-
     </header>
-  )
+  );
 }
