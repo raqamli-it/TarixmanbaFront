@@ -1,7 +1,7 @@
-import React from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const HomeSliderLib = () => {
   const settings = {
@@ -19,30 +19,36 @@ const HomeSliderLib = () => {
           slidesToShow: 2,
           slidesToScroll: 1,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
+          slidesToScroll: 1,
+        },
+      },
     ],
     prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />
+    nextArrow: <NextArrow />,
   };
 
   // Custom prev/next arrows
   const PrevArrow = (props) => (
-    <button {...props} className="absolute top-2/4 left-4 z-10 transform -translate-y-2/4 bg-gray-900 text-white rounded-full w-10 h-10 flex items-center justify-center focus:outline-none">
+    <button
+      {...props}
+      className="absolute top-2/4 left-4 z-10 transform -translate-y-2/4 bg-gray-900 text-white rounded-full w-10 h-10 flex items-center justify-center focus:outline-none"
+    >
       Prev
     </button>
   );
 
   const NextArrow = (props) => (
-    <button {...props} className="absolute top-2/4 right-4 z-10 transform -translate-y-2/4 bg-gray-900 text-white rounded-full w-10 h-10 flex items-center justify-center focus:outline-none">
+    <button
+      {...props}
+      className="absolute top-2/4 right-4 z-10 transform -translate-y-2/4 bg-gray-900 text-white rounded-full w-10 h-10 flex items-center justify-center focus:outline-none"
+    >
       Next
     </button>
   );

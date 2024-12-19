@@ -22,7 +22,8 @@ export default function ReactDatePicker() {
       year: "numeric",
     }).format(
       new Date(
-        `${selectedDate.getFullYear()}/${selectedDate.getMonth() + 1
+        `${selectedDate.getFullYear()}/${
+          selectedDate.getMonth() + 1
         }/${selectedDate.getDate()}`
       )
     );
@@ -39,70 +40,70 @@ export default function ReactDatePicker() {
         setHijriList({
           year: `${manth.split("/")[2].slice(0, 4)}-yil`,
           day: `${manth.split("/")[1]}`,
-          month: `muharram`,
+          month: `Muharram`,
         });
         break;
       case "2/":
         setHijriList({
           year: `${manth.split("/")[2].slice(0, 4)}-yil`,
           day: `${manth.split("/")[1]}`,
-          month: `safar`,
+          month: `Safar`,
         });
         break;
       case "3/":
         setHijriList({
           year: `${manth.split("/")[2].slice(0, 4)}-yil`,
           day: `${manth.split("/")[1]}`,
-          month: `rabiul Avval`,
+          month: `Rabi ul-avval`,
         });
         break;
       case "4/":
         setHijriList({
           year: `${manth.split("/")[2].slice(0, 4)}-yil`,
           day: `${manth.split("/")[1]}`,
-          month: `raius Soniy`,
+          month: `Rabi as-soniy`,
         });
         break;
       case "5/":
         setHijriList({
           year: `${manth.split("/")[2].slice(0, 4)}-yil`,
           day: `${manth.split("/")[1]}`,
-          month: `jumodul Avval`,
+          month: `Jumodi al-avval`,
         });
         break;
       case "6/":
         setHijriList({
           year: `${manth.split("/")[2].slice(0, 4)}-yil`,
           day: `${manth.split("/")[1]}`,
-          month: `jumodus Soniy`,
+          month: `Jumodi as-soniy`,
         });
         break;
       case "7/":
         setHijriList({
           year: `${manth.split("/")[2].slice(0, 4)}-yil`,
           day: `${manth.split("/")[1]}`,
-          month: `rajab`,
+          month: `Rajab`,
         });
         break;
       case "8/":
         setHijriList({
           year: `${manth.split("/")[2].slice(0, 4)}-yil`,
           day: `${manth.split("/")[1]}`,
-          month: `sha'bon`,
+          month: `Sha'bon`,
         });
         break;
       case "9/":
         setHijriList({
           year: `${manth.split("/")[2].slice(0, 4)}-yil`,
           day: `${manth.split("/")[1]}`,
-          month: `ramazon`,
+          month: `Ramazon`,
         });
         break;
       case "10":
         setHijriList({
           year: `${manth.split("/")[2].slice(0, 4)}-yil`,
           day: `${manth.split("/")[1]}`,
-          month: `shavvol`,
+          month: `Shavvol`,
         });
         break;
 
@@ -110,7 +111,7 @@ export default function ReactDatePicker() {
         setHijriList({
           year: `${manth.split("/")[2].slice(0, 4)}-yil`,
           day: `${manth.split("/")[1]}`,
-          month: `zulqa'da`,
+          month: `Zulqa'da`,
         });
         // console.log(hijriList);
         break;
@@ -119,7 +120,7 @@ export default function ReactDatePicker() {
         setHijriList({
           year: `${manth.split("/")[2].slice(0, 4)}-yil`,
           day: `${manth.split("/")[1]}`,
-          month: `zulhijja`,
+          month: `Zulhijja`,
         });
         break;
     }
@@ -129,16 +130,74 @@ export default function ReactDatePicker() {
     <>
       <div className="live_clendar_item">
         <FaCalendarAlt className="icons-calendar" />
-        <DatePicker
-          selected={selectedDate}
-          onChange={(e) => setSelectedDate(e)}
-          dateFormat={"yyyy-'yil' dd-MMMM   "}
-          locale="uz"
-        />
+        <Sana />
+        {/* <DatePicker
+            selected={selectedDate}
+            onChange={(e) => setSelectedDate(e)}
+            dateFormat={"yyyy-'yil' dd-MMMM   "}
+            locale="uz"
+          /> */}
         {/* <div>{formattedDate}</div> */}
         {/* {console.log();} */}
         <div className="hijri-sana">{`${hijriList.year} ${hijriList.day}-${hijriList.month}`}</div>
       </div>
     </>
   );
+}
+
+function Sana() {
+  const [date, setDate] = useState(new Date());
+  const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
+  const [day, setDay] = useState("");
+
+  useEffect(() => {
+    // Kun, oy va yilni yangilash
+    setDay(date.getDate().toString().padStart(2, "0"));
+    setYear(date.getFullYear().toString());
+
+    // Oy nomlarini `switch` yordamida aniqlash
+    switch (date.getMonth()) {
+      case 0:
+        setMonth("yanvar");
+        break;
+      case 1:
+        setMonth("fevral");
+        break;
+      case 2:
+        setMonth("mart");
+        break;
+      case 3:
+        setMonth("aprel");
+        break;
+      case 4:
+        setMonth("may");
+        break;
+      case 5:
+        setMonth("iyun");
+        break;
+      case 6:
+        setMonth("iyul");
+        break;
+      case 7:
+        setMonth("avgust");
+        break;
+      case 8:
+        setMonth("sentabr");
+        break;
+      case 9:
+        setMonth("oktabr");
+        break;
+      case 10:
+        setMonth("noyabr");
+        break;
+      case 11:
+        setMonth("dekabr");
+        break;
+      default:
+        setMonth("Noma'lum");
+    }
+  }, [date]); // `date` o‘zgarganda `useEffect` ishga tushadi
+
+  return <p>{`${year}-yil ${day}-${month}`}</p>;
 }

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import { Pagination, Navigation } from 'swiper/modules';
-import { Link } from 'react-router-dom';
-import bgPattern from '../../../assets/img/bg_pattern.png';
-import { DataService } from '../../config/dataService';
-import { endpoints } from '../../config/endpoints';
+import React, { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Pagination, Navigation } from "swiper/modules";
+import { Link } from "react-router-dom";
+import bgPattern from "../../../assets/img/bg_pattern.png";
+import { DataService } from "../../config/dataService";
+import { endpoints } from "../../config/endpoints";
 
 export default function HomeCardsArchi() {
   const [apiData, setApiData] = useState([]);
@@ -17,9 +17,9 @@ export default function HomeCardsArchi() {
       const response = await DataService.get(endpoints.categoryApi_list);
 
       setApiData(response);
-      console.error('card archi archi !!!!!!!!!!!! :', response.results);
+      console.error("card archi archi !!!!!!!!!!!! :", response.results);
     } catch (error) {
-      console.error('Error fetching category data:', error);
+      console.error("Error fetching category data:", error);
     }
   };
 
@@ -62,7 +62,7 @@ export default function HomeCardsArchi() {
                               alt="image"
                               onError={(e) => {
                                 e.target.src =
-                                  'http://backend.tarixmanba.uz/media/media/images/resource/1.jpg'; // Xatolik bo'lsa, tasvirni almashtirish
+                                  "http://raqamli.tarixmanba.uz/media/media/images/resource/1.jpg"; // Xatolik bo'lsa, tasvirni almashtirish
                               }}
                               className="card__img-car bg-black"
                             />
@@ -82,14 +82,14 @@ export default function HomeCardsArchi() {
                         </div>
                       </SwiperSlide>
                     ) : (
-                      ''
-                    ),
+                      ""
+                    )
                   )}
                 </Swiper>
               </div>
             ) : (
-              ''
-            ),
+              ""
+            )
           )}
         </div>
 

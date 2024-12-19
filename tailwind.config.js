@@ -8,6 +8,12 @@ export default {
         2: 2,
       },
     },
+    screens: {
+      xl: { max: "1024px" },
+      lg: { max: "870px" },
+      md: { max: "768px" },
+      sm: { max: "520px" },
+    },
   },
   plugins: [require("tailwind-scrollbar")],
 };

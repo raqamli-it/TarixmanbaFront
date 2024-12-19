@@ -1,29 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { DataService } from '../config/dataService';
-import { endpoints } from '../config/endpoints';
-import { IoMdEye } from 'react-icons/io';
-import { MdMessage } from 'react-icons/md';
-import { FaPlay, FaStar } from 'react-icons/fa6';
-import { AnimatePresence, motion } from 'framer-motion';
-import LoaderCard from '../Components/component/LoaderCard';
-import Skeleton from '../Components/component/Skleton';
-import SkletonFilter from '../Components/component/SkletonFilter';
-import { LuRotate3D } from 'react-icons/lu';
-import { FaGlobeAmericas } from 'react-icons/fa';
-import { GrTextWrap } from 'react-icons/gr';
-import { BiSolidVideos } from 'react-icons/bi';
-import { FaImages } from 'react-icons/fa';
-import { PiFileAudioFill } from 'react-icons/pi';
-import { IoCloseOutline } from 'react-icons/io5';
-import { CiPause1 } from 'react-icons/ci';
-import { TiArrowLoop } from 'react-icons/ti';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import CardDetailMap from '../Components/component/CardDetailMap';
-import { saveAs } from 'file-saver';
-import VideoLink from '../Components/component/VideoLink';
-import MyErrorBoundary from '../Components/component/MyErrorBoundary';
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { DataService } from "../config/dataService";
+import { endpoints } from "../config/endpoints";
+import { IoMdEye } from "react-icons/io";
+import { MdMessage } from "react-icons/md";
+import { FaPlay, FaStar } from "react-icons/fa6";
+import { AnimatePresence, motion } from "framer-motion";
+import LoaderCard from "../Components/component/LoaderCard";
+import Skeleton from "../Components/component/Skleton";
+import SkletonFilter from "../Components/component/SkletonFilter";
+import { LuRotate3D } from "react-icons/lu";
+import { FaGlobeAmericas } from "react-icons/fa";
+import { GrTextWrap } from "react-icons/gr";
+import { BiSolidVideos } from "react-icons/bi";
+import { FaImages } from "react-icons/fa";
+import { PiFileAudioFill } from "react-icons/pi";
+import { IoCloseOutline } from "react-icons/io5";
+import { CiPause1 } from "react-icons/ci";
+import { TiArrowLoop } from "react-icons/ti";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import CardDetailMap from "../Components/component/CardDetailMap";
+import { saveAs } from "file-saver";
+import VideoLink from "../Components/component/VideoLink";
+import MyErrorBoundary from "../Components/component/MyErrorBoundary";
 
 export default function Shablon() {
   const [filters1, setFilters1] = useState([]);
@@ -43,10 +43,10 @@ export default function Shablon() {
     setIsLoading(true);
     setIsSuccess(false);
     setProgress(0);
-    const pdfUrl = 'path/to/your/pdf/file.pdf';
+    const pdfUrl = "path/to/your/pdf/file.pdf";
     await fetch(pdfUrl)
       .then((response) => {
-        const total = parseInt(response.headers.get('content-length'), 10);
+        const total = parseInt(response.headers.get("content-length"), 10);
         const reader = response.body.getReader();
         let receivedLength = 0;
         return new Response(
@@ -66,12 +66,12 @@ export default function Shablon() {
               }
               push();
             },
-          }),
+          })
         );
       })
       .then((response) => response.blob())
       .then((blob) => {
-        saveAs(blob, 'downloaded-file.pdf');
+        saveAs(blob, "downloaded-file.pdf");
         setIsLoading(false);
         setIsSuccess(true);
         setTimeout(() => {
@@ -113,23 +113,23 @@ export default function Shablon() {
       const queryParams = new URLSearchParams();
       if (filters1.length > 0) {
         filters1.forEach((filter) => {
-          queryParams.append('filters', filter);
+          queryParams.append("filters", filter);
         });
       }
       if (periodFilter) {
-        queryParams.append('period_filter', periodFilter);
+        queryParams.append("period_filter", periodFilter);
       }
-      queryParams.append('page', page);
+      queryParams.append("page", page);
 
       const fullUrl = `${endpoints.categoryResourceApiById(
-        `${route?.id}/`,
+        `${route?.id}/`
       )}?${queryParams.toString()}`;
       const response = await DataService.get(fullUrl);
       setApiData(response);
       setTotalPages(Math.ceil(response.resources.count / 20)); // Sahifa sonini hisoblash (20 elementdan iborat deb hisobladik)
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       setLoading(false);
     }
   };
@@ -165,11 +165,11 @@ export default function Shablon() {
             key={i}
             onClick={() => handlePageChange(i)}
             className={`px-2 py-1 mx-1 rounded ${
-              i === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200'
+              i === currentPage ? "bg-blue-500 text-white" : "bg-gray-200"
             }`}
           >
             {i}
-          </button>,
+          </button>
         );
       } else if (
         (i === currentPage - 2 || i === currentPage + 2) &&
@@ -182,7 +182,7 @@ export default function Shablon() {
             className="px-2 py-1 mx-1 rounded bg-gray-200"
           >
             ...
-          </button>,
+          </button>
         );
       }
     }
@@ -194,28 +194,27 @@ export default function Shablon() {
           disabled={currentPage === 1}
           className="px-3 py-1 mx-1 bg-gray-200 rounded disabled:opacity-50"
         >
-          {'<'}
+          {"<"}
         </button>
+
         {pages}
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
           className="px-3 py-1 mx-1 bg-gray-200 rounded disabled:opacity-50"
         >
-          {'>'}
+          {">"}
         </button>
       </div>
     );
   };
-  // const handleCategoryClick = (categoryId) => {
-  //   setOpenCategory(openCategory === categoryId ? null : categoryId);
-  // };
+
   return (
     <>
-      <div className="shablon-container bg-transparent">
-        <div className="filt-cont-shablonmanba  min-w-[30%] max-w-[35%]">
-          <div className="sidebar-filter min-w-[60%] max-w-[100%] ">
-            <div className="bar-filter1 max-h-[100vh] min-w-[85%] min-h-[50vh] pb-[40px]   overflow-auto">
+      <div className="bg-transparent flex justify-between gap-5 py-10 lg:flex-col">
+        <div className="w-[35%] text-white lg:w-4/5 lg:mx-auto sm:w-full">
+          <div className="w-[100%] ">
+            <div className="w-full pb-[40px] ">
               {apiData?.category ? (
                 <h4 className="p-[20px] flex justify-center text-[30px] ">
                   {apiData?.category}
@@ -224,47 +223,48 @@ export default function Shablon() {
                 <SkletonFilter />
               )}
               {apiData?.period_filters?.length > 0 ? (
-                <div className="transition-all duration-500 px-[40px]">
+                <div className="transition-all duration-500 px-5">
                   <button
                     onClick={() => setOchil(!ochil)}
                     className={
                       ochil
-                        ? ' w-[100%] text-[20px] px-[15px] bg-[#40403F] rounded hover:bg-[#191a19] transition-all duration-500 py-[15px]'
-                        : ' w-[100%] text-[20px] px-[10px] hover:bg-[#1E201E] transition-all duration-500 py-[15px]'
+                        ? " w-[100%] text-[20px] bg-[#40403F] rounded hover:bg-[#191a19] transition-all duration-500 py-[15px]"
+                        : " w-[100%] text-[20px] hover:bg-[#1E201E] transition-all duration-500 py-[15px]"
                     }
                     style={{
-                      textAlign: 'left',
-                      cursor: 'pointer',
-                      position: 'relative',
+                      textAlign: "left",
+                      cursor: "pointer",
+                      position: "relative",
                     }}
                   >
                     Davr bo'yicha
                     <span
                       style={{
-                        fontSize: '16px',
-                        position: 'absolute',
-                        right: '20px',
-                        top: '30%',
-                        transition: 'transform 0.3s',
-                        transform: ochil ? 'rotate(180deg)' : 'rotate(0deg)',
+                        fontSize: "16px",
+                        position: "absolute",
+                        right: "20px",
+                        top: "30%",
+                        transition: "transform 0.3s",
+                        transform: ochil ? "rotate(180deg)" : "rotate(0deg)",
                       }}
                     >
                       ▼
                     </span>
                   </button>
+
                   <AnimatePresence>
                     {ochil && (
                       <motion.div
-                        className="p-[px]  bg-[#43434223] text-[!red]"
-                        initial={{ opacity: 0, y: '-30%', scale: 0.5 }}
-                        animate={{ opacity: 1, y: '0%', scale: 1 }}
-                        exit={{ opacity: 0, y: '-30%', scale: 0.5 }}
+                        className="p-5 bg-[#43434223] overflow-x-hidden mx-auto"
+                        initial={{ opacity: 0, y: "-30%", scale: 0.5 }}
+                        animate={{ opacity: 1, y: "0%", scale: 1 }}
+                        exit={{ opacity: 0, y: "-30%", scale: 0.5 }}
                         transition={{ duration: 0.2 }}
                       >
                         {apiData?.period_filters?.map((period) => (
                           <li
                             key={period?.id}
-                            className="py-[15px] cursor-pointer hover:bg-[#3E3E3E] px-[20px] flex items-center justify-between "
+                            className="py-[15px] cursor-pointer hover:bg-[#3E3E3E] flex items-center justify-between "
                             onClick={() => {
                               setPeriodFilter(period.id);
                               togglePeriod(period.id);
@@ -287,37 +287,37 @@ export default function Shablon() {
                   </AnimatePresence>
                 </div>
               ) : (
-                ''
+                ""
               )}
               <div className="transition-all duration-500">
                 {apiData?.filter_categories?.map((category) => (
-                  <div key={category.id} className="px-[40px]">
+                  <div key={category.id} className="px-5">
                     <button
                       onClick={() => handleCategoryClick(category.id)}
                       className={
                         openCategory === category.id
-                          ? ' w-[100%] text-[20px] px-[15px] bg-[#40403F] rounded hover:bg-[#191a19] transition-all duration-500 py-[15px]'
-                          : ' w-[100%] text-[20px] rounded px-[10px] hover:bg-[#1E201E] transition-all duration-500 py-[15px]'
+                          ? " w-[100%] text-[20px] bg-[#40403F] rounded hover:bg-[#191a19] transition-all duration-500 py-[15px]"
+                          : " w-[100%] text-[20px] rounded hover:bg-[#1E201E] transition-all duration-500 py-[15px]"
                       }
                       style={{
-                        width: '100%',
-                        textAlign: 'left',
-                        cursor: 'pointer',
-                        position: 'relative',
+                        width: "100%",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        position: "relative",
                       }}
                     >
                       {category.title}
                       <span
                         style={{
-                          fontSize: '16px',
-                          position: 'absolute',
-                          right: '20px',
-                          top: '30%',
-                          transition: 'transform 0.3s',
+                          fontSize: "16px",
+                          position: "absolute",
+                          right: "20px",
+                          top: "30%",
+                          transition: "transform 0.3s",
                           transform:
                             openCategory === category.id
-                              ? 'rotate(180deg)'
-                              : 'rotate(0deg)',
+                              ? "rotate(180deg)"
+                              : "rotate(0deg)",
                         }}
                       >
                         ▼
@@ -327,15 +327,14 @@ export default function Shablon() {
                       {openCategory === category.id && (
                         <motion.div
                           className="  bg-[#43434043]"
-                          initial={{ opacity: 0, y: '-30%', scale: 0.5 }}
-                          animate={{ opacity: 1, y: '0%', scale: 1 }}
-                          exit={{ opacity: 0, y: '-30%', scale: 0.5 }}
+                          initial={{ opacity: 0, y: "-30%", scale: 0.5 }}
+                          animate={{ opacity: 1, y: "0%", scale: 1 }}
+                          exit={{ opacity: 0, y: "-30%", scale: 0.5 }}
                           transition={{ duration: 0.2 }}
                         >
                           {apiData?.filters
                             ?.filter(
-                              (filter) =>
-                                filter.filter_category === category.id,
+                              (filter) => filter.filter_category === category.id
                             )
                             .map((filter) => (
                               <li
@@ -361,82 +360,46 @@ export default function Shablon() {
             </div>
           </div>
         </div>
-        <div className="card-container-shablon   min-w-[65%] max-w-[65%] ">
-          {loading ? ( // Display loader if loading
-            <div className="flex flex-col gap-[20px] pl-[100px]  justify-start  sticky top-[0px] h-[max-content] min-w-[100%]">
-              <Skeleton />
-            </div>
-          ) : // Replace with your loader component
-          apiData?.resources?.results?.length > 0 ? (
+
+        <div className="w-[65%] lg:w-[95%] lg:mx-auto">
+          {apiData?.resources?.results?.length > 0 &&
             apiData?.resources?.results.map((e, i) => (
-              // <div className="flex flex-col justify-center  h-[max-content] " key={e?.id}>
-              //   <div
-              //     onClick={() => navigate(`/cardDetail/${e?.id}`)}
-              //     className="relative flex flex-col cursor-pointer border-0 md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border-white bg-[#303030]"
-              //   >
-              //     <div className="w-full  grid  rounded">
-              //       <img src={e?.image} alt="tailwind logo" className="bg-[#191a19] rounded  w-[300px] h-[200px]" />
-
-              //       <div className=" w-[100%] flex justify-center  text-white bg-white   pt-[10px]  gap-[15px]">
-              //         <span className="flex gap-[3px] text-[15px] items-center"><IoMdEye className="text-[18px]" /> 20534</span>
-              //         <span className="flex gap-[3px] text-[15px] items-center">
-              //           <FaStar className="text-[16px]" /> 2900
-              //         </span>
-              //         <span className="flex gap-[3px] text-[15px] items-center">
-              //           <MdMessage className="text-[18px]" /> 2900
-              //         </span>
-              //       </div>
-
-              //     </div>
-              //     <div className="w-full md:w-2/3 bg-[#303030] flex gap-[20px] flex-col space-y-2 p-3">
-              //       <div className="flex gap-4 items-center justify-end w-[100%]">
-              //         <div className="flex items-center text-white">
-
-              //         </div>
-              //       </div>
-              //       <h3 className="font-[#1E201E] text-white md:text-[25px] text-xl line-clamp-3">{e?.title} Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, consectetur!</h3>
-              //       <p className="md:text-lg text-white lg:w-[400px] line-clamp-2 text-base">
-              //         <span>{e?.attributes[0]?.title}</span>: {e?.attributes[0]?.description}
-              //       </p>
-              //     </div>
-              //   </div>
-              // </div>
               <div
-                className="w-[85%] flex items-center gap-1 h-[300px]"
+                className="w-full flex items-start gap-1 h-[300px] sm:h-[86vh] sm:flex-col"
                 key={e?.id}
               >
-                {/* img cont */}
-                <div className="w-[33%] pl-[10px] h-[95%]">
-                  <div
-                    className="bg-black h-[85%] rounded"
+                <div className="w-[33%] xl:w-2/5 h-[95%] sm:w-full sm:h-[300px]">
+                  <img
+                    className="bg-black h-[85%] w-full sm:mx-auto sm:block rounded"
                     onClick={() => navigate(`/cardDetail/${e?.id}`)}
-                    style={{ backgroundImage: `url(${e?.image})` }}
-                  >
-                    {/* img */}
-                  </div>
-                  <div className=" w-[100%] flex justify-center  text-white   pt-[15px]  gap-[15px]">
+                    src={`${e?.image}`}
+                  />
+
+                  <div className="w-[100%] flex justify-between md:px-0 text-white pt-[15px]">
                     <span className="flex gap-[3px] text-[15px] items-center">
-                      <IoMdEye className="text-[18px]" /> 20534
+                      <IoMdEye className="text-[18px] md:text-[16px]" />
+                      <span>20534</span>
                     </span>
+
                     <span className="flex gap-[3px] text-[15px] items-center">
-                      <FaStar className="text-[16px]" /> 2900
+                      <FaStar className="text-[16px] md:text-[16px]" />
+                      <span>2900</span>
                     </span>
+
                     <span className="flex gap-[3px] text-[15px] items-center">
-                      <MdMessage className="text-[18px]" /> 2900
+                      <MdMessage className="text-[16px] md:text-[16px]" />
+                      <span>2900</span>
                     </span>
                   </div>
                 </div>
 
-                {/* text cont */}
-
-                <div className="w-[67%] h-[95%] justify-between  p-[10px] flex items-center flex-col ">
-                  <h2 className="line-clamp-3  text-white w-[100%]  text-[30px] font-extrabold ">
-                    {/* title */}
+                <div className="w-[67%] h-[95%] justify-between p-[10px] sm:h-[300px] flex items-center flex-col sm:w-full">
+                  <h2 className="line-clamp-3 text-white w-[100%]  text-[30px] md:text-[24px] sm:text-[20px] xl:leading-9 font-normal sm:leading-6">
                     {e?.title}
                   </h2>
-                  <p className="md:text-lg text-white w-[100%] line-clamp-2 text-base">
-                    <span>{e?.attributes[0]?.title}</span>:{' '}
-                    {e?.attributes[0]?.description}
+                  <p className="md:text-lg text-white w-[100%] line-clamp-2 flex gap-2 md:text-[16px]">
+                    <span>{e?.attributes[0]?.title}</span>:
+                    <span>{e?.attributes[0]?.description}</span>
                   </p>
 
                   <div className="flex gap-[20px] items-center flex-wrap w-[100%]">
@@ -451,16 +414,18 @@ export default function Shablon() {
                       style={{
                         color:
                           e?.audios && e?.audios?.length > 0
-                            ? '#fff'
-                            : '#a9a7a7',
+                            ? "#fff"
+                            : "#a9a7a7",
                         cursor:
                           e?.audios && e?.audios?.length > 0
-                            ? 'pointer'
-                            : 'not-allowed',
+                            ? "pointer"
+                            : "not-allowed",
                       }}
                     >
-                      Eshtuv <PiFileAudioFill className="text-[20px]" />{' '}
+                      Eshtuv
+                      <PiFileAudioFill className="text-[20px] md:text-[18px]" />
                     </button>
+
                     <button
                       className="flex gap-[10px] items-center  cursor-pointer  text-white"
                       onClick={() =>
@@ -469,19 +434,20 @@ export default function Shablon() {
                       style={{
                         color:
                           e?.galleries && e?.galleries?.length > 0
-                            ? '#fff'
-                            : '#a9a7a7',
+                            ? "#fff"
+                            : "#a9a7a7",
                         cursor:
                           e?.galleries && e?.galleries?.length > 0
-                            ? 'pointer'
-                            : 'not-allowed',
+                            ? "pointer"
+                            : "not-allowed",
                       }}
                       disabled={
                         e?.galleries && e?.galleries?.length > 0 ? false : true
                       }
                     >
-                      Sur'at <FaImages className="text-[20px]" />{' '}
+                      Sur'at <FaImages className="text-[20px] md:text-[18px]" />
                     </button>
+
                     <button
                       className="flex gap-[10px] items-center  cursor-pointer  text-white"
                       onClick={() =>
@@ -489,16 +455,17 @@ export default function Shablon() {
                       }
                       style={{
                         color:
-                          e?.files && e?.files?.length > 0 ? '#fff' : '#a9a7a7',
+                          e?.files && e?.files?.length > 0 ? "#fff" : "#a9a7a7",
                         cursor:
                           e?.files && e?.files?.length > 0
-                            ? 'pointer'
-                            : 'not-allowed',
+                            ? "pointer"
+                            : "not-allowed",
                       }}
                       disabled={e?.files && e?.files?.length > 0 ? false : true}
                     >
-                      Matn <GrTextWrap className="text-[20px]" />
+                      Matn <GrTextWrap className="text-[20px] md:text-[18px]" />
                     </button>
+
                     <button
                       className="flex gap-[10px] items-center  cursor-pointer  text-white"
                       onClick={() =>
@@ -507,19 +474,21 @@ export default function Shablon() {
                       style={{
                         color:
                           e?.locations && e?.locations?.length > 0
-                            ? '#fff'
-                            : '#a9a7a7',
+                            ? "#fff"
+                            : "#a9a7a7",
                         cursor:
                           e?.locations && e?.locations?.length > 0
-                            ? 'pointer'
-                            : 'not-allowed',
+                            ? "pointer"
+                            : "not-allowed",
                       }}
                       disabled={
                         e?.locations && e?.locations?.length > 0 ? false : true
                       }
                     >
-                      Xarita <FaGlobeAmericas className="text-[20px]" />
+                      Xarita
+                      <FaGlobeAmericas className="text-[20px] md:text-[18px]" />
                     </button>
+
                     <button
                       className="flex gap-[10px] items-center  cursor-pointer  text-white"
                       onClick={() =>
@@ -529,13 +498,13 @@ export default function Shablon() {
                         color:
                           e?.virtual_realities &&
                           e?.virtual_realities?.length > 0
-                            ? '#fff'
-                            : '#a9a7a7',
+                            ? "#fff"
+                            : "#a9a7a7",
                         cursor:
                           e?.virtual_realities &&
                           e?.virtual_realities?.length > 0
-                            ? 'pointer'
-                            : 'not-allowed',
+                            ? "pointer"
+                            : "not-allowed",
                       }}
                       disabled={
                         e?.virtual_realities && e?.virtual_realities?.length > 0
@@ -543,8 +512,9 @@ export default function Shablon() {
                           : true
                       }
                     >
-                      3D <LuRotate3D className="text-[20px]" />{' '}
+                      3D <LuRotate3D className="text-[20px] md:text-[18px]" />
                     </button>
+
                     <button
                       className="flex gap-[10px] items-center  cursor-pointer  text-white"
                       onClick={() =>
@@ -553,18 +523,19 @@ export default function Shablon() {
                       style={{
                         color:
                           e?.videos && e?.videos?.length > 0
-                            ? '#fff'
-                            : '#a9a7a7',
+                            ? "#fff"
+                            : "#a9a7a7",
                         cursor:
                           e?.videos && e?.videos?.length > 0
-                            ? 'pointer'
-                            : 'not-allowed',
+                            ? "pointer"
+                            : "not-allowed",
                       }}
                       disabled={
                         e?.videos && e?.videos?.length > 0 ? false : true
                       }
                     >
-                      Ko'ruv <BiSolidVideos className="text-[20px]" />{' '}
+                      Ko'ruv
+                      <BiSolidVideos className="text-[20px] md:text-[18px]" />
                     </button>
                   </div>
                   <dialog
@@ -641,7 +612,6 @@ export default function Shablon() {
                       method="dialog"
                       className=" w-[100%] flex justify-end"
                     >
-                      {/* if there is a button in form, it will close the modal */}
                       <button className="btn text-[30px] text-[#fff]">
                         <IoCloseOutline />
                       </button>
@@ -658,7 +628,6 @@ export default function Shablon() {
                       method="dialog"
                       className=" w-[100%] flex justify-end"
                     >
-                      {/* if there is a button in form, it will close the modal */}
                       <button className="btn text-[30px] text-[#fff]">
                         <IoCloseOutline />
                       </button>
@@ -684,7 +653,7 @@ export default function Shablon() {
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.95 }}
                           className={`relative px-6 py-3 font-bold text-white bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 rounded-full shadow-lg transition-transform transform ${
-                            isLoading ? 'animate-pulse' : ''
+                            isLoading ? "animate-pulse" : ""
                           }`}
                         >
                           {isLoading ? (
@@ -714,7 +683,7 @@ export default function Shablon() {
                               Yuklanmoqda...
                             </>
                           ) : (
-                            'PDF-ni yuklab olish'
+                            "PDF-ni yuklab olish"
                           )}
                         </motion.button>
                         <AnimatePresence>
@@ -725,7 +694,7 @@ export default function Shablon() {
                               exit={{ opacity: 0, y: -50 }}
                               transition={{ duration: 0.5 }}
                               className="absolute top-0 left-0 w-[400px] flex items-center justify-center bg-green-500 text-white font-bold rounded-full"
-                              style={{ top: '-3rem' }} // Adjust the position above the button
+                              style={{ top: "-3rem" }} // Adjust the position above the button
                             >
                               Muvaffaqiyatli yuklandi!
                             </motion.div>
@@ -741,34 +710,7 @@ export default function Shablon() {
                   </div>
                 </div>
               </div>
-            ))
-          ) : (
-            <div className="flex flex-col sticky top-[20px] justify-center items-center bg-[#1E201E] h-[80vh] w-[100%] ">
-              <img
-                className="w-[150px]"
-                src="https://icons.iconarchive.com/icons/pelfusion/flat-folder/128/Cross-Folder-icon.png"
-                alt=""
-              />
-              <h2 className="text-[white] text-[45px] ">Ma'lumot topilmadi</h2>
-            </div>
-          )}
-          {/* <div className="flex justify-center items-center space-x-2 mt-4">
-          <button
-            onClick={() => handlePageClick(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="px-3 py-1 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
-          >
-            {'<'}
-          </button>
-          {renderPagination()}
-          <button
-            onClick={() => handlePageClick(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className="px-3 py-1 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
-          >
-            {'>'}
-          </button>
-        </div> */}
+            ))}
         </div>
       </div>
       <div className=" bg-[#202020] h-[100px] flex justify-center items-center ">
@@ -793,12 +735,12 @@ const AudioPlayer = ({ src, key, title }) => {
     const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
     const handleLoadedMetadata = () => setDuration(audio.duration);
 
-    audio.addEventListener('timeupdate', handleTimeUpdate);
-    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
 
     return () => {
-      audio.removeEventListener('timeupdate', handleTimeUpdate);
-      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
   }, []);
 
@@ -827,7 +769,7 @@ const AudioPlayer = ({ src, key, title }) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60)
       .toString()
-      .padStart(2, '0');
+      .padStart(2, "0");
     return `${minutes}:${seconds}`;
   };
 

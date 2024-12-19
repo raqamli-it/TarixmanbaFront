@@ -5,7 +5,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
 
@@ -30,7 +29,6 @@ export default function HomeCardMedia() {
           <Swiper
             slidesPerView={1}
             spaceBetween={10}
-
             pagination={{
               clickable: true,
             }}
@@ -137,10 +135,8 @@ export default function HomeCardMedia() {
                 </div>
               </div>
             </SwiperSlide>
-
           </Swiper>
         </div>
-
       </div>
     </div>
   );

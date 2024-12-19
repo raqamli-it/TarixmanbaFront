@@ -42,8 +42,8 @@ export default function Header() {
   const fetchData = async () => {
     try {
       const response = await DataService.get(endpoints.categoryResourceApi);
+      console.log("Manba  catigory Header dan ", response);
       setApiData(response);
-      console.log(response, "Manba  catigory Header dan ");
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -83,8 +83,6 @@ export default function Header() {
       setLoginDrop(false);
     }
   };
-
-  console.log(apiData, "kkkkkkkkkkkkkkkkkkkk");
 
   const handleClickOutsideMax = (event) => {
     if (valRefMax.current && !valRefMax.current.contains(event.target)) {
@@ -128,7 +126,6 @@ export default function Header() {
           </div>
         </div>
 
-
         <div className="ob-havo">
           <Weather />
         </div>
@@ -140,7 +137,7 @@ export default function Header() {
               type="text"
               placeholder="Izlash"
               required
-            />
+            />{" "}
             <span className="search-btn">
               <IoIosSearch />
             </span>
@@ -148,6 +145,7 @@ export default function Header() {
           <div className="functionale">
             {/* ////////////////////////////////////////////////////////// menu bar  */}
             <div className="ham-menu">
+              {" "}
               <CgMenuRightAlt
                 className="hamburger"
                 onClick={() => setShowDRB(!showDRB)}
@@ -178,12 +176,10 @@ export default function Header() {
                   <li className="bar-list-item wather-item-cont">
                     <Weather />
                   </li>
-
                   <li className="ham-calendar">
                     {/* ////////////////////////////////////////////////////////////////////////////////////////// */}
                     <ReactDatePicker />
                   </li>
-
                   <li className="bar-list-item search-item-cont">
                     <form>
                       <input
@@ -191,7 +187,7 @@ export default function Header() {
                         type="text"
                         name="search"
                         id="search-bar"
-                      />
+                      />{" "}
                       <button className="bar-src-btn">Qidruv</button>
                     </form>
                   </li>
@@ -202,8 +198,6 @@ export default function Header() {
                   >
                     <span>Manbalar</span>
                   </li>
-
-
                   <motion.li
                     className="bar-list-item-manba"
                     style={{ display: showManba ? "block" : "none" }}
@@ -230,14 +224,15 @@ export default function Header() {
                                   );
                               }}
                             >
+                              {" "}
                               {/* <TbBuildingCastle /> */}
                               <img
                                 className="w-[25px] h-[20px]  object-cover m-[2px]"
                                 src={categoryResurs.icon}
                                 alt=""
                               />
-
                               <span className="text-matn-color">
+                                {" "}
                                 {categoryResurs.title}
                               </span>
                             </Link>
@@ -248,13 +243,11 @@ export default function Header() {
                       )}
                     </ul>
                   </motion.li>
-
                   <li className="bar-list-item-menu">
                     <Link className="text-matn-color" to="/library">
                       Kutubxona
                     </Link>
                   </li>
-
                   <li className="bar-list-item-menu">
                     <Link className="text-matn-color" to="/news">
                       Yangiliklar
@@ -278,8 +271,6 @@ export default function Header() {
           </div>
         </div>
       </div>
-
-
       <nav>
         <div className="nav-box">
           <div
@@ -298,6 +289,7 @@ export default function Header() {
                 damping: 50,
               }}
             >
+              {" "}
               <IoIosArrowUp />
             </motion.div>
             <motion.ul
@@ -327,16 +319,15 @@ export default function Header() {
                       <img
                         className="w-[25px] h-[20px]  object-cover m-[2px]"
                         src={categoryResurs.icon}
-                        alt="img"
+                        alt=""
                       />
-
                       <span
                       // onClick={() =>
                       //   navigate(`/sources/archive/${categoryResurs.id}`)
                       // }
                       >
-                        {categoryResurs.title}{" "}
-                        <span>{`/sources/archive/${categoryResurs.id}`}</span>
+                        {" "}
+                        {categoryResurs.title}
                       </span>
                     </Link>
                   </motion.li>
@@ -379,9 +370,9 @@ export default function Header() {
                 damping: 50,
               }}
             >
+              {" "}
               <IoIosArrowUp />
             </motion.div>
-
 
             <motion.ul
               className={loginDrop ? "menu-login" : ""}
