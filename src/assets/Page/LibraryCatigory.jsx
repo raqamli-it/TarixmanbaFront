@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { IoBookOutline } from 'react-icons/io5';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion, useMotionValueEvent } from 'framer-motion';
-import { useScroll } from 'framer-motion';
-import { DataService } from '../config/dataService';
-import { endpoints } from '../config/endpoints';
-import Breadcrumb from '../Components/component/Breadcrumb';
+import React, { useEffect, useState } from "react";
+import { IoBookOutline } from "react-icons/io5";
+import { Link, useNavigate } from "react-router-dom";
+import { motion, useMotionValueEvent } from "framer-motion";
+import { useScroll } from "framer-motion";
+import { DataService } from "../config/dataService";
+import { endpoints } from "../config/endpoints";
+import Breadcrumb from "../Components/component/Breadcrumb";
 
 export default function () {
   const navigate = useNavigate();
   const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollY, 'change', (latest) => {
+  useMotionValueEvent(scrollY, "change", (latest) => {
     // console.log("Page scroll: ", latest);
   });
 
@@ -19,9 +19,9 @@ export default function () {
   const [apiData, setApiData] = useState();
   const fetchData = async () => {
     const response = await DataService.get(endpoints.libraryCategory);
-    console.log(response.results, 'libCategoryssss');
+    console.log(response.results, "libCategoryssss");
     setApiData(response);
-    let x = document.querySelector('title');
+    let x = document.querySelector("title");
     x.textContent = `Aqilly ktubxona `;
   };
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function () {
 
   // ҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳҳ
 
-  const [activeButton, setActiveButton] = useState('Product Updates');
+  const [activeButton, setActiveButton] = useState("Product Updates");
 
   const handleButtonClick = (button) => {
     setActiveButton(button);
@@ -38,8 +38,8 @@ export default function () {
 
   const buttonClass = (button) =>
     activeButton === button
-      ? 'px-4 py-2 bg-black text-white font-semibold rounded-full'
-      : 'px-4 py-2 bg-gray-100 text-black font-semibold rounded-full';
+      ? "px-4 py-2 bg-black text-white font-semibold rounded-full"
+      : "px-4 py-2 bg-gray-100 text-black font-semibold rounded-full";
 
   return (
     <>
@@ -54,32 +54,33 @@ export default function () {
               <h2 className="mb-4 mt-6 text-[white] text-3xl  font-bold md:text-5xl">
                 Kutubxonaga hush kelding
               </h2>
+
               <p className="text-gray-500 mt-2">
                 Lorem ipsum dolor sit amet elit ut aliquam
               </p>
               {/* Buttons */}
               <div className="my-10 md:my-20 flex flex-col md:flex-row justify-center gap-3">
                 <button
-                  className={buttonClass('Engaging Articles')}
-                  onClick={() => handleButtonClick('Engaging Articles')}
+                  className={buttonClass("Engaging Articles")}
+                  onClick={() => handleButtonClick("Engaging Articles")}
                 >
                   katigorya 1
                 </button>
                 <button
-                  className={buttonClass('Product Updates')}
-                  onClick={() => handleButtonClick('Product Updates')}
+                  className={buttonClass("Product Updates")}
+                  onClick={() => handleButtonClick("Product Updates")}
                 >
                   katigorya 2
                 </button>
                 <button
-                  className={buttonClass('Reflex Workflows')}
-                  onClick={() => handleButtonClick('Reflex Workflows')}
+                  className={buttonClass("Reflex Workflows")}
+                  onClick={() => handleButtonClick("Reflex Workflows")}
                 >
                   katigorya 3
                 </button>
                 <button
-                  className={buttonClass('Artificial Intelligence')}
-                  onClick={() => handleButtonClick('Artificial Intelligence')}
+                  className={buttonClass("Artificial Intelligence")}
+                  onClick={() => handleButtonClick("Artificial Intelligence")}
                 >
                   katigorya 4
                 </button>
@@ -155,6 +156,7 @@ export default function () {
                       </h2>
                       <p>Lorem ipsum dolor sit amet elit ut aliquam</p>
                     </div>
+
                     <button className="cursor-pointer h-14 w-14">
                       <svg
                         className="h-14 w-14"

@@ -115,7 +115,7 @@ export default function Header() {
     <header>
       <div className="header-top-box">
         <Link className="logo-box" to="/">
-          <h3>AQLLI KUTUBXONA</h3>
+          <h3>AQILLI KUTUBXONA</h3>
         </Link>
         <div className="full__data__picer">
           <div className="live__time">
