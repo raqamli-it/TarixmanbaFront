@@ -12,6 +12,7 @@ import CardDeteil from "./assets/Page/CardDeteil";
 import Register from "./assets/Page/Register";
 import NotFound from "./assets/Page/NotFound";
 import ScrollToTop from "./assets/Components/component/ScrollTutop";
+import NewsDetail from "./assets/Page/NewsDetail";
 
 function App() {
   return (
@@ -36,6 +37,11 @@ function App() {
             <Route path="/login" Component={Login} />
             {/* <Route path="/register" Component={Register} /> */}
             <Route path="/sources/:type/:id" Component={Shablon} />
+
+            {/* /news/newsDetail/:id" page  bu saxifa src/assets/Page/NewsDetail shu yerda joylashgan*/}
+            <Route path="/news/newsDetail/:id" Component={NewsDetail} />
+            <Route path="/aboutus" Component={AboutUs} />
+
             <Route path="*" Component={NotFound} />
           </Route>
         </Routes>

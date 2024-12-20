@@ -114,9 +114,12 @@ export default function Header() {
   return (
     <header>
       <div className="header-top-box">
+        <div className="pr-3">
         <Link className="logo-box" to="/">
-          <h3>AQLLI KUTUBXONA</h3>
+          <h1>AQLLI KUTUBXONA</h1>
         </Link>
+        </div>
+        
         <div className="full__data__picer">
           <div className="live__time">
             <p>{time.toLocaleTimeString()}</p>
@@ -398,7 +401,7 @@ export default function Header() {
                 whileHover={{ x: 7, opacity: 0.5 }}
               >
                 <Link className="nav-login-link" to="/register">
-                  Registratsiya
+                  Ro'yxatdan o'tish
                 </Link>
               </motion.li>
             </motion.ul>

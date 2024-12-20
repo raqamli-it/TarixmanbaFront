@@ -368,7 +368,7 @@ export default function Shablon() {
                 className="w-full flex items-start gap-1 h-[300px] sm:h-[86vh] sm:flex-col"
                 key={e?.id}
               >
-                <div className="w-[33%] xl:w-2/5 h-[95%] sm:w-full sm:h-[300px]">
+                <div className="w-[30%] xl:w-2/5 h-[95%] sm:w-full sm:h-[300px]">
                   <img
                     className="bg-black h-[85%] w-full sm:mx-auto sm:block rounded"
                     onClick={() => navigate(`/cardDetail/${e?.id}`)}
