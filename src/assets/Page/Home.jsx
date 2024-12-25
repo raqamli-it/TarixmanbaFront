@@ -10,10 +10,12 @@ import HomeCardsArchi from '../Components/Home/HomeCardsArchi';
 // import Tabs from '../Components/component/Tabs'
 // import BigMaps from '../Components/Home/TabsWithMap'
 // import Namuna from '../Components/component/Namuna'
+import { useState } from 'react';
 
 export default function Home() {
   return (
     <main>
+      
       <Acardion />
       {/* <Map /> */}
       {/* <Tabs /> */}

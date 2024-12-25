@@ -22,7 +22,7 @@ function News() {
   }, []);
   return (
     <>
-      <Breadcrumb />
+      <Breadcrumb catigory={"Yangiliklar"}/>
 
       <div className="mx-auto max-w-[1200px] grid gap-y-10 py-10 grid-cols-4 gap-5 px-5 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 md:w-4/5 sm:w-full">
         {newsApi?.map((value, idx) => (
@@ -34,7 +34,6 @@ function News() {
               <div className="flex justify-between items-center">
                 <div className="flex flex-col">
                   <span>Yangiliklar</span>
-
                   <span>
                     {format(new Date(value.created_time), "yyyy-MM-dd")}
                   </span>

@@ -24,6 +24,8 @@ import CardDetailMap from "../Components/component/CardDetailMap";
 import { saveAs } from "file-saver";
 import VideoLink from "../Components/component/VideoLink";
 import MyErrorBoundary from "../Components/component/MyErrorBoundary";
+import { IoIosSearch, IoIosArrowUp } from "react-icons/io";
+
 
 export default function Shablon() {
   const [filters1, setFilters1] = useState([]);
@@ -38,6 +40,7 @@ export default function Shablon() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const fileSize = 1024;
+  const [isSticky, setIsSticky] = useState(false);
   const [progress, setProgress] = useState(0);
   const handleDownload = async () => {
     setIsLoading(true);
@@ -208,20 +211,51 @@ export default function Shablon() {
       </div>
     );
   };
+  
+  
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsSticky(window.scrollY > 150);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
       <div className="bg-transparent flex justify-between gap-5 py-10 lg:flex-col">
-        <div className="w-[35%] text-white lg:w-4/5 lg:mx-auto sm:w-full">
-          <div className="w-[100%] ">
+        <div className="sticky top-0 p-11 w-[35%] text-white lg:w-4/5 lg:mx-auto sm:w-full">
+          <div className={`w-[100%]`}>
             <div className="w-full pb-[40px] ">
               {apiData?.category ? (
-                <h4 className="p-[20px] flex justify-center text-[30px] ">
-                  {apiData?.category}
-                </h4>
+                <div>
+                  <h4 className="p-[20px] flex justify-center text-[30px] ">
+                    {apiData?.category}
+                  </h4>
+                  
+                </div>
+
+                
+                
               ) : (
                 <SkletonFilter />
               )}
+              <div className="search-box-bigs flex justify-center items-center py-8 bg-transparent">
+                <div className="search-box relative w-full max-w-md">
+                  <input
+                    className="bg-transparent search-inp w-full py-3 px-5 pr-14 text-white border border-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    type="text"
+                    placeholder="Izlash"
+                    required
+                  />
+                  <span className="search-btn absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-blue-500 cursor-pointer">
+                    <IoIosSearch className="text-2xl" />
+                  </span>
+                </div>
+              </div>
+
               {apiData?.period_filters?.length > 0 ? (
                 <div className="transition-all duration-500 px-5">
                   <button

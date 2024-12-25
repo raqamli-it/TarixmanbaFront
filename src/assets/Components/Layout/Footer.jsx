@@ -6,12 +6,12 @@ import { FaInstagram } from "react-icons/fa";
 export default function Footer() {
   return (
     <footer className=" bg-[#0a1821] min-h-40 flex">
-      <div className="container flex flex-col items-center justify-between p-6 mx-auto space-y-4 sm:space-y-0 sm:flex-row">
+      <div className="container flex flex-col items-center justify-between p-6 mx-auto space-y-4">
         <a href="#" className="text-white">
           Aqlli kutubxona
         </a>
 
-        <p className="text-sm text-white dark:text-white">
+        <p className="text-sm text-white dark:text-white text-center">
           © Copyright 2023. Barcha huquqlar RL tomonidan himoyalangan
         </p>
 

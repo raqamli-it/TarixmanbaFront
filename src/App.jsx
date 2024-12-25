@@ -26,14 +26,14 @@ function App() {
             <Route path="/news" Component={News} />
             {/* <Route path="/aboutus" Component={AboutUs} /> */}
             <Route path="/news/:id" Component={News} />
-            <Route path="/library" Component={LibraryCatigory} />
+            <Route path="/library-categories/" Component={LibraryCatigory} />
             {/* <Route path="/model " Component={Model3d} /> */}
             <Route
               path="/libraryDetail/:id"
               Component={LibraryCategoryDetail}
             />
             <Route path="/cardDetail/:id" Component={CardDeteil} />
-            {/* <Route path="/media" Component={Media} /> */}
+            {/* <Route path="/media" Compon ent={Media} /> */}
             <Route path="/login" Component={Login} />
             {/* <Route path="/register" Component={Register} /> */}
             <Route path="/sources/:type/:id" Component={Shablon} />

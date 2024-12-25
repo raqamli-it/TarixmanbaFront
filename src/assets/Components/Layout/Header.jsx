@@ -115,11 +115,12 @@ export default function Header() {
     <header>
       <div className="header-top-box">
         <div className="pr-3">
-        <Link className="logo-box" to="/">
-          <h1>AQLLI KUTUBXONA</h1>
-        </Link>
+          <Link className="logo-box" to="/">
+            <h1>AQLLI KUTUBXONA</h1>
+          </Link>
         </div>
-        
+
+
         <div className="full__data__picer">
           <div className="live__time">
             <p>{time.toLocaleTimeString()}</p>
@@ -140,7 +141,7 @@ export default function Header() {
               type="text"
               placeholder="Izlash"
               required
-            />{" "}
+            />
             <span className="search-btn">
               <IoIosSearch />
             </span>
@@ -148,11 +149,11 @@ export default function Header() {
           <div className="functionale">
             {/* ////////////////////////////////////////////////////////// menu bar  */}
             <div className="ham-menu">
-              {" "}
               <CgMenuRightAlt
                 className="hamburger"
                 onClick={() => setShowDRB(!showDRB)}
               />
+
               <motion.div
                 className="drop-bar-menu"
                 style={{ display: showDRB ? "block" : "none" }}
@@ -190,10 +191,11 @@ export default function Header() {
                         type="text"
                         name="search"
                         id="search-bar"
-                      />{" "}
+                      />
                       <button className="bar-src-btn">Qidruv</button>
                     </form>
                   </li>
+
 
                   <li
                     className="bar-list-item-menu"
@@ -204,7 +206,6 @@ export default function Header() {
                   <motion.li
                     className="bar-list-item-manba"
                     style={{ display: showManba ? "block" : "none" }}
-                    // initial={{ scale: 0 }}
                     animate={{ x: showManba ? 0 : 100 }}
                     transition={{
                       type: "spring",
@@ -227,7 +228,6 @@ export default function Header() {
                                   );
                               }}
                             >
-                              {" "}
                               {/* <TbBuildingCastle /> */}
                               <img
                                 className="w-[25px] h-[20px]  object-cover m-[2px]"
@@ -235,7 +235,6 @@ export default function Header() {
                                 alt=""
                               />
                               <span className="text-matn-color">
-                                {" "}
                                 {categoryResurs.title}
                               </span>
                             </Link>
@@ -247,33 +246,51 @@ export default function Header() {
                     </ul>
                   </motion.li>
                   <li className="bar-list-item-menu">
-                    <Link className="text-matn-color" to="/library">
+                    <Link
+                      onClick={() => setShowDRB(!showDRB)}
+                      className="text-matn-color"
+                      to="/library-categories"
+                    >
                       Kutubxona
                     </Link>
                   </li>
                   <li className="bar-list-item-menu">
-                    <Link className="text-matn-color" to="/news">
+                    <Link
+                      onClick={() => setShowDRB(!showDRB)}
+                      className="text-matn-color"
+                      to="/news"
+                    >
                       Yangiliklar
-                    </Link>{" "}
+                    </Link>
                   </li>
 
                   <li className="bar-list-item-menu">
-                    <Link className="text-matn-color" to="/aboutus">
+                    <Link
+                      onClick={() => setShowDRB(!showDRB)}
+                      className="text-matn-color"
+                      to="/aboutus"
+                    >
                       Biz haqimizda
                     </Link>
                   </li>
                   <li className="bar-list-item-menu">
-                    <Link className="text-matn-color" to="/login">
-                      Login
+                    <Link
+                      onClick={() => setShowDRB(!showDRB)}
+                      className="text-matn-color"
+                      to="/login"
+                    >
+                      Kirish
                     </Link>
                   </li>
                 </ul>
               </motion.div>
-            </div>{" "}
+            </div>
             {/* menu bar- end  */}
           </div>
         </div>
       </div>
+
+
       <nav>
         <div className="nav-box">
           <div
@@ -292,7 +309,6 @@ export default function Header() {
                 damping: 50,
               }}
             >
-              {" "}
               <IoIosArrowUp />
             </motion.div>
             <motion.ul
@@ -324,14 +340,7 @@ export default function Header() {
                         src={categoryResurs.icon}
                         alt=""
                       />
-                      <span
-                      // onClick={() =>
-                      //   navigate(`/sources/archive/${categoryResurs.id}`)
-                      // }
-                      >
-                        {" "}
-                        {categoryResurs.title}
-                      </span>
+                      <span>{categoryResurs.title}</span>
                     </Link>
                   </motion.li>
                 ))
@@ -341,11 +350,13 @@ export default function Header() {
               {/* //////////////////////////////////////////////////Manba: katigoryalar  end*/}
             </motion.ul>
           </div>
+
           <div className="nav-menu">
-            <Link to="/library" className="link">
+            <Link to="/library-categories" className="link">
               Kutubxona
             </Link>
           </div>
+
           <div className="nav-menu">
             <Link to="/news" className="link">
               Yangiliklar
@@ -357,6 +368,7 @@ export default function Header() {
               Biz haqimizda
             </Link>
           </div>
+
           <div
             className="nav-menu nav-login"
             onClick={() => {
@@ -373,9 +385,9 @@ export default function Header() {
                 damping: 50,
               }}
             >
-              {" "}
               <IoIosArrowUp />
             </motion.div>
+
 
             <motion.ul
               className={loginDrop ? "menu-login" : ""}
