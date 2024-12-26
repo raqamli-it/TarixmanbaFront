@@ -120,7 +120,6 @@ export default function Header() {
           </Link>
         </div>
 
-
         <div className="full__data__picer">
           <div className="live__time">
             <p>{time.toLocaleTimeString()}</p>
@@ -195,7 +194,6 @@ export default function Header() {
                       <button className="bar-src-btn">Qidruv</button>
                     </form>
                   </li>
-
 
                   <li
                     className="bar-list-item-menu"
@@ -273,7 +271,7 @@ export default function Header() {
                       Biz haqimizda
                     </Link>
                   </li>
-                  <li className="bar-list-item-menu">
+                  {/* <li className="bar-list-item-menu">
                     <Link
                       onClick={() => setShowDRB(!showDRB)}
                       className="text-matn-color"
@@ -281,7 +279,7 @@ export default function Header() {
                     >
                       Kirish
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </motion.div>
             </div>
@@ -289,7 +287,6 @@ export default function Header() {
           </div>
         </div>
       </div>
-
 
       <nav>
         <div className="nav-box">
@@ -369,7 +366,7 @@ export default function Header() {
             </Link>
           </div>
 
-          <div
+          {/* <div
             className="nav-menu nav-login"
             onClick={() => {
               setLoginDrop(!loginDrop);
@@ -417,7 +414,7 @@ export default function Header() {
                 </Link>
               </motion.li>
             </motion.ul>
-          </div>
+          </div> */}
         </div>
       </nav>
       {/* ////////////////////////////////////////////////////////Lenta */}
