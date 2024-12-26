@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes, Navigate } from "react-router";
+import { useState, useEffect } from "react";
 import Layout from "./Layout";
 import Home from "./assets/Page/Home";
 import LibraryCatigory from "./assets/Page/LibraryCatigory";
@@ -14,38 +15,60 @@ import NotFound from "./assets/Page/NotFound";
 import ScrollToTop from "./assets/Components/component/ScrollTutop";
 import NewsDetail from "./assets/Page/NewsDetail";
 
+function ProtectedRoute({ children, isAuthenticated }) {
+  return isAuthenticated ? children : <Navigate to="/login" />;
+}
+
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      const parsedToken = JSON.parse(token);
+      if (parsedToken.expiry > new Date().getTime()) {
+        setIsAuthenticated(true);
+      } else {
+        localStorage.removeItem("authToken");
+      }
+    }
+  }, []);
+
   return (
     <>
-      <div>
-        {/* <CursorAnim /> */}
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" Component={Layout}>
-            <Route path="/" Component={Home} />
-            <Route path="/news" Component={News} />
-            {/* <Route path="/aboutus" Component={AboutUs} /> */}
-            <Route path="/news/:id" Component={News} />
-            <Route path="/library-categories/" Component={LibraryCatigory} />
-            {/* <Route path="/model " Component={Model3d} /> */}
-            <Route
-              path="/libraryDetail/:id"
-              Component={LibraryCategoryDetail}
-            />
-            <Route path="/cardDetail/:id" Component={CardDeteil} />
-            {/* <Route path="/media" Compon ent={Media} /> */}
-            <Route path="/login" Component={Login} />
-            {/* <Route path="/register" Component={Register} /> */}
-            <Route path="/sources/:type/:id" Component={Shablon} />
-
-            {/* /news/newsDetail/:id" page  bu saxifa src/assets/Page/NewsDetail shu yerda joylashgan*/}
-            <Route path="/news/newsDetail/:id" Component={NewsDetail} />
-            <Route path="/aboutus" Component={AboutUs} />
-
-            <Route path="*" Component={NotFound} />
-          </Route>
-        </Routes>
-      </div>
+      <ScrollToTop />
+      <Routes>
+        {/* Agar autentifikatsiya bo'lgan bo'lsa, foydalanuvchini "/" ga yo'naltiradi */}
+        <Route
+          path="/login"
+          element={
+            isAuthenticated ? (
+              <Navigate to="/" />
+            ) : (
+              <Login setAuth={setIsAuthenticated} />
+            )
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Home />} />
+          <Route path="/news" Component={News} />
+          <Route path="/news/:id" Component={News} />
+          <Route path="/library-categories/" Component={LibraryCatigory} />
+          <Route path="/libraryDetail/:id" Component={LibraryCategoryDetail} />
+          <Route path="/cardDetail/:id" Component={CardDeteil} />
+          <Route path="/sources/:type/:id" Component={Shablon} />
+          <Route path="/news/newsDetail/:id" Component={NewsDetail} />
+          <Route path="/aboutus" Component={AboutUs} />
+        </Route>
+        <Route path="*" Component={NotFound} />
+      </Routes>
     </>
   );
 }

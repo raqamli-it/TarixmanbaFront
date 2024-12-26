@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { IoMdSettings } from 'react-icons/io';
+import React, { useEffect, useState } from "react";
+import { IoMdSettings } from "react-icons/io";
 // import React from "react";
 // import Header from "./Components/Header";
 // import Footer from "./Components/Footer";
-import { Outlet } from 'react-router';
-import Header from './assets/Components/Layout/Header';
-import Footer from './assets/Components/Layout/Footer';
-import LoaderCard from './assets/Components/component/LoaderCard';
+import { Outlet } from "react-router";
+import Header from "./assets/Components/Layout/Header";
+import Footer from "./assets/Components/Layout/Footer";
+import LoaderCard from "./assets/Components/component/LoaderCard";
 // import rasm from "../src/assets/img/fon5.jpg";
 
 export default function Layout() {
@@ -20,13 +20,13 @@ export default function Layout() {
 
   const [changeColor, setChangeColor] = useState(false);
   const onchangeMode = (mode) => {
-    const body = document.querySelector('body');
+    const body = document.querySelector("body");
     body.className = mode;
     console.log(mode);
     console.log(body.className);
   };
   return (
-    <>
+    <div className="bg-black/70">
       {load ? (
         <div className="loyaut-loader">
           <LoaderCard />
@@ -34,14 +34,17 @@ export default function Layout() {
       ) : (
         <div className="layoute-container">
           <Header />
-          <div className="container-layout">
+          <div
+            className="container-layout"
+            onClick={() => setChangeColor(false)}
+          >
             <Outlet />
           </div>
           <div
             className={`color__switcher ${
-              changeColor && 'color__switcher--open'
+              changeColor && "color__switcher--open"
             }`}
-            style={{ position: 'absolute' }}
+            style={{ position: "absolute" }}
           >
             <button
               onClick={() => setChangeColor((prevState) => !prevState)}
@@ -55,35 +58,35 @@ export default function Layout() {
             <div className="color__list ">
               <div
                 className="color__item bgThreecolor"
-                onClick={() => onchangeMode('bgThree')}
+                onClick={() => onchangeMode("bgThree")}
               ></div>
 
               <div
                 className="color__item bgSevencolor"
-                onClick={() => onchangeMode('bgSeven')}
+                onClick={() => onchangeMode("bgSeven")}
               ></div>
               <div
                 className="color__item bgEightcolor"
-                onClick={() => onchangeMode('bgEight')}
+                onClick={() => onchangeMode("bgEight")}
               ></div>
 
               <div
                 className="color__item bg10color"
-                onClick={() => onchangeMode('bg10')}
+                onClick={() => onchangeMode("bg10")}
               ></div>
               <div
                 className="color__item bg11color"
-                onClick={() => onchangeMode('bg11')}
+                onClick={() => onchangeMode("bg11")}
               ></div>
               <div
                 className="color__item bg12color"
-                onClick={() => onchangeMode('bg12')}
+                onClick={() => onchangeMode("bg12")}
               ></div>
             </div>
           </div>
           <Footer />
         </div>
       )}
-    </>
+    </div>
   );
 }

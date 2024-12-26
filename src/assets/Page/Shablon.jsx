@@ -26,9 +26,9 @@ import VideoLink from "../Components/component/VideoLink";
 import MyErrorBoundary from "../Components/component/MyErrorBoundary";
 import { IoIosSearch, IoIosArrowUp } from "react-icons/io";
 
-
 export default function Shablon() {
   const [filters1, setFilters1] = useState([]);
+  const [search, setSearch] = useState("");
   const [periodFilter, setPeriodFilter] = useState(null);
   const [selectedPeriods, setSelectedPeriods] = useState([]);
   const [openCategory, setOpenCategory] = useState(null);
@@ -87,6 +87,7 @@ export default function Shablon() {
   };
   const navigate = useNavigate();
   const route = useParams();
+  const searchInputRef = useRef(null);
 
   const togglePeriod = (periodId) => {
     if (selectedPeriods.includes(periodId)) {
@@ -110,6 +111,11 @@ export default function Shablon() {
     setCurrentPage(1); // Filter o'zgarganda birinchi sahifaga o'tish
   };
 
+  const toggleSearch = (text) => {
+    setSearch(text);
+    setCurrentPage(1);
+  };
+
   const fetchData = async (page = 1) => {
     setLoading(true);
     try {
@@ -122,11 +128,16 @@ export default function Shablon() {
       if (periodFilter) {
         queryParams.append("period_filter", periodFilter);
       }
+      if (search) {
+        queryParams.append("search", search.trim());
+        // console.log(search);
+      }
       queryParams.append("page", page);
-
+      console.log(queryParams.toString());
       const fullUrl = `${endpoints.categoryResourceApiById(
         `${route?.id}/`
       )}?${queryParams.toString()}`;
+      console.log(fullUrl);
       const response = await DataService.get(fullUrl);
       setApiData(response);
       setTotalPages(Math.ceil(response.resources.count / 20)); // Sahifa sonini hisoblash (20 elementdan iborat deb hisobladik)
@@ -140,9 +151,18 @@ export default function Shablon() {
     setCurrentPage(1); // Sahifa yuklanganda currentPage ni 1 ga o‘rnatish
   }, [route.id]);
 
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 300); // 300ms kechikish
+    return () => clearTimeout(handler);
+  }, [search]);
+
   useEffect(() => {
     fetchData(currentPage);
-  }, [filters1, periodFilter, route.id, currentPage]);
+  }, [filters1, periodFilter, debouncedSearch, route.id, currentPage]);
 
   const handleCategoryClick = (categoryId) => {
     setOpenCategory(openCategory === categoryId ? null : categoryId);
@@ -211,17 +231,20 @@ export default function Shablon() {
       </div>
     );
   };
-  
-  
 
   useEffect(() => {
     const handleScroll = () => {
       setIsSticky(window.scrollY > 150);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleSearch = () => {
+    const value = searchInputRef.current?.value || "";
+    toggleSearch(value);
+  };
 
   return (
     <>
@@ -234,24 +257,23 @@ export default function Shablon() {
                   <h4 className="p-[20px] flex justify-center text-[30px] ">
                     {apiData?.category}
                   </h4>
-                  
                 </div>
-
-                
-                
               ) : (
                 <SkletonFilter />
               )}
               <div className="search-box-bigs flex justify-center items-center py-8 bg-transparent">
                 <div className="search-box relative w-full max-w-md">
                   <input
+                    ref={searchInputRef}
                     className="bg-transparent search-inp w-full py-3 px-5 pr-14 text-white border border-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     type="text"
                     placeholder="Izlash"
                     required
                   />
                   <span className="search-btn absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-blue-500 cursor-pointer">
-                    <IoIosSearch className="text-2xl" />
+                    <button onClick={handleSearch}>
+                      <IoIosSearch className="text-2xl" />
+                    </button>
                   </span>
                 </div>
               </div>
