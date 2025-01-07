@@ -277,22 +277,50 @@
     transform: rotate(360deg);
   }
 }
-.swiper-button-prev {
-  left: -60px; /* Kartadan chap tomonga */
-}
+// .swiper-button-prev {
+//   color: white;
+// }
 
-/* O'ng tugma: kartalar konteyneridan tashqariga surish */
-.swiper-button-next {
-  right: -60px; /* Kartadan o'ng tomonga */
-}
+// /* O'ng tugma: kartalar konteyneridan tashqariga surish */
+// .swiper-button-next {
+//   color: white;
+// }
 
-/* Tugmalarni kichik ekranlarda to'g'rilash */
-@media (max-width: 768px) {
-  .swiper-button-prev,
-  .swiper-button-next {
-    left: -40px;
-    right: -40px;
-    width: 30px;
-    height: 30px;
-  }
-}
+// /* Tugmalarni kichik ekranlarda to'g'rilash */
+// @media (max-width: 768px) {
+//   .swiper-button-prev,
+//   .swiper-button-next {
+//     left: -40px;
+//     right: -40px;
+//     width: 30px;
+//     height: 30px;
+//   }
+// }
+
+// .swiper-button-prev,
+// .swiper-button-next {
+//   position: absolute;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   z-index: 10;
+//   background-color: rgba(0, 0, 0, 0.5); /* Yarı shaffof fon */
+//   color: white;
+//   border-radius: 50%;
+//   width: 40px;
+//   height: 40px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
+// }
+
+// /* Juda kichik ekranlarda (telefon) */
+// @media (max-width: 480px) {
+//   .swiper-button-prev,
+//   .swiper-button-next {
+//     left: -15px;
+//     right: -15px;
+//     width: 25px;
+//     height: 25px;
+//   }
+// }
