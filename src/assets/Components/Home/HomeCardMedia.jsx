@@ -1,20 +1,20 @@
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 // import required modules
-import { Pagination, Navigation } from "swiper/modules";
+import { Pagination, Navigation } from 'swiper/modules';
 
 // import image
-import media1 from "../../img/Кўр, эшит, тингла/media1.jpg";
-import media2 from "../../img/Кўр, эшит, тингла/media2.jpg";
-import media3 from "../../img/Кўр, эшит, тингла/media3.jpg";
-import media4 from "../../img/Кўр, эшит, тингла/media4.jpg";
-import media5 from "../../img/Кўр, эшит, тингла/media5.jpg";
-import media6 from "../../img/Кўр, эшит, тингла/media6.jfif";
+import media1 from '../../img/Кўр, эшит, тингла/media1.jpg';
+import media2 from '../../img/Кўр, эшит, тингла/media2.jpg';
+import media3 from '../../img/Кўр, эшит, тингла/media3.jpg';
+import media4 from '../../img/Кўр, эшит, тингла/media4.jpg';
+import media5 from '../../img/Кўр, эшит, тингла/media5.jpg';
+import media6 from '../../img/Кўр, эшит, тингла/media6.jfif';
 
 export default function HomeCardMedia() {
   return (

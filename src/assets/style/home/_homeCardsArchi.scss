@@ -277,3 +277,22 @@
     transform: rotate(360deg);
   }
 }
+.swiper-button-prev {
+  left: -60px; /* Kartadan chap tomonga */
+}
+
+/* O'ng tugma: kartalar konteyneridan tashqariga surish */
+.swiper-button-next {
+  right: -60px; /* Kartadan o'ng tomonga */
+}
+
+/* Tugmalarni kichik ekranlarda to'g'rilash */
+@media (max-width: 768px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    left: -40px;
+    right: -40px;
+    width: 30px;
+    height: 30px;
+  }
+}
