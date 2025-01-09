@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import Breadcrumb from "../Components/component/Breadcrumb";
-import { Link } from "react-router-dom";
-import { format } from "date-fns";
+import { useEffect, useState } from 'react';
+import Breadcrumb from '../Components/component/Breadcrumb';
+import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 
 function News() {
   const [newsApi, setNewsApi] = useState([]);
 
   const newsData = async () => {
     try {
-      const respons = await fetch("https://backend.tarixmanba.uz/api/news/");
+      const respons = await fetch('https://backend.tarixmanba.uz/api/news/');
       const resp = await respons.json();
       setNewsApi(resp.results);
-      console.log(resp, "Kamoliddin News Page");
+      console.log(resp, 'Kamoliddin News Page');
     } catch (error) {
       console.log(error);
     }
@@ -22,7 +22,7 @@ function News() {
   }, []);
   return (
     <>
-      <Breadcrumb catigory={"Yangiliklar"}/>
+      <Breadcrumb catigory={'Yangiliklar'} />
 
       <div className="mx-auto max-w-[1200px] grid gap-y-10 py-10 grid-cols-4 gap-5 px-5 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 md:w-4/5 sm:w-full">
         {newsApi?.map((value, idx) => (
@@ -35,7 +35,7 @@ function News() {
                 <div className="flex flex-col">
                   <span>Yangiliklar</span>
                   <span>
-                    {format(new Date(value.created_time), "yyyy-MM-dd")}
+                    {format(new Date(value.created_time), 'yyyy-MM-dd')}
                   </span>
                 </div>
                 <Link

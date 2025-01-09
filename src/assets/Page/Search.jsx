@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { DataService } from '../config/dataService';
 import { endpoints } from '../config/endpoints';
 import { IoMdEye } from 'react-icons/io';
@@ -26,7 +26,7 @@ import VideoLink from '../Components/component/VideoLink';
 import MyErrorBoundary from '../Components/component/MyErrorBoundary';
 import { IoIosSearch, IoIosArrowUp } from 'react-icons/io';
 
-export default function Shablon() {
+export default function Search() {
   const [filters1, setFilters1] = useState([]);
   const [search, setSearch] = useState('');
   const [periodFilter, setPeriodFilter] = useState([]);
@@ -85,6 +85,9 @@ export default function Shablon() {
         setIsLoading(false);
       });
   };
+  const location = useLocation();
+  const { query } = location.state || {};
+  console.log(query);
   const navigate = useNavigate();
   const route = useParams();
   const searchInputRef = useRef(null);
@@ -147,9 +150,11 @@ export default function Shablon() {
         `${route?.id}/`,
       )}?${queryParams.toString()}`;
       console.log(fullUrl);
-      const response = await DataService.get(fullUrl);
+      const response = await DataService.get(
+        `https://backend.tarixmanba.uz/api/search/?q=${query}`,
+      );
       setApiData(response);
-      setTotalPages(Math.ceil(response.resources.count / 20)); // Sahifa sonini hisoblash (20 elementdan iborat deb hisobladik)
+      //setTotalPages(Math.ceil(response.resources.count / 20)); // Sahifa sonini hisoblash (20 elementdan iborat deb hisobladik)
       setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -250,201 +255,12 @@ export default function Shablon() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleSearch = () => {
-    const value = searchInputRef.current?.value || '';
-    toggleSearch(value);
-  };
-
   return (
     <>
       <div className="bg-transparent flex justify-between gap-5 py-10 lg:flex-col">
-        <div className="sticky top-0 p-11 w-[35%] text-white lg:w-4/5 lg:mx-auto sm:w-full">
-          <div className={`w-[100%]`}>
-            <div className="w-full pb-[40px] ">
-              {apiData?.category ? (
-                <div>
-                  <h4 className="p-[20px] flex justify-center text-[30px] ">
-                    {apiData?.category}
-                  </h4>
-                </div>
-              ) : (
-                <SkletonFilter />
-              )}
-              <div className="search-box-bigs flex justify-center items-center py-8 bg-transparent">
-                <div className="search-box relative w-full max-w-md">
-                  <input
-                    ref={searchInputRef}
-                    className="bg-transparent search-inp w-full py-3 px-5 pr-14 text-white border border-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    type="text"
-                    placeholder="Izlash"
-                    required
-                  />
-                  <span className="search-btn absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-blue-500 cursor-pointer">
-                    <button onClick={handleSearch}>
-                      <IoIosSearch className="text-2xl" />
-                    </button>
-                  </span>
-                </div>
-              </div>
-
-              {apiData?.period_filters?.length > 0 ? (
-                <div className="transition-all duration-500 px-5">
-                  <button
-                    onClick={() => setOchil(!ochil)}
-                    className={
-                      ochil
-                        ? ' w-[100%] text-[20px] bg-[#40403F] rounded hover:bg-[#191a19] transition-all duration-500 py-[15px]'
-                        : ' w-[100%] text-[20px] hover:bg-[#1E201E] transition-all duration-500 py-[15px]'
-                    }
-                    style={{
-                      textAlign: 'left',
-                      cursor: 'pointer',
-                      position: 'relative',
-                    }}
-                  >
-                    Davr bo'yicha
-                    <span
-                      style={{
-                        fontSize: '16px',
-                        position: 'absolute',
-                        right: '20px',
-                        top: '30%',
-                        transition: 'transform 0.3s',
-                        transform: ochil ? 'rotate(180deg)' : 'rotate(0deg)',
-                      }}
-                    >
-                      ▼
-                    </span>
-                  </button>
-
-                  <AnimatePresence>
-                    {ochil && (
-                      <motion.div
-                        className="p-5 bg-[#43434223] overflow-x-hidden mx-auto"
-                        initial={{ opacity: 0, y: '-30%', scale: 0.5 }}
-                        animate={{ opacity: 1, y: '0%', scale: 1 }}
-                        exit={{ opacity: 0, y: '-30%', scale: 0.5 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        {apiData?.period_filters?.map((period) => (
-                          <li
-                            key={period?.id}
-                            className="py-[15px] cursor-pointer hover:bg-[#3E3E3E] flex items-center justify-between "
-                            onClick={() => {
-                              setPeriodFilter(period.id);
-                              togglePeriod(period.id);
-                            }}
-                          >
-                            <span className="truncate w-[60%]">
-                              {period?.title}
-                            </span>
-                            <input
-                              type="checkbox"
-                              className="w-[20px]"
-                              //checked={selectedPeriods.includes(period.id)}
-                              readOnly
-                              onChange={() => {
-                                if (selectedPeriods.includes(period.id)) {
-                                  // Agar tanlangan bo'lsa, o'chirish
-                                  setSelectedPeriods(
-                                    selectedPeriods.filter(
-                                      (id) => id !== period.id,
-                                    ),
-                                  );
-                                } else {
-                                  // Aks holda, qo'shish
-                                  setSelectedPeriods([
-                                    ...selectedPeriods,
-                                    period.id,
-                                  ]);
-                                }
-                              }}
-                            />
-                          </li>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ) : (
-                ''
-              )}
-              <div className="transition-all duration-500">
-                {apiData?.filter_categories?.map((category) => (
-                  <div key={category.id} className="px-5">
-                    <button
-                      onClick={() => handleCategoryClick(category.id)}
-                      className={
-                        openCategory === category.id
-                          ? ' w-[100%] text-[20px] bg-[#40403F] rounded hover:bg-[#191a19] transition-all duration-500 py-[15px]'
-                          : ' w-[100%] text-[20px] rounded hover:bg-[#1E201E] transition-all duration-500 py-[15px]'
-                      }
-                      style={{
-                        width: '100%',
-                        textAlign: 'left',
-                        cursor: 'pointer',
-                        position: 'relative',
-                      }}
-                    >
-                      {category.title}
-                      <span
-                        style={{
-                          fontSize: '16px',
-                          position: 'absolute',
-                          right: '20px',
-                          top: '30%',
-                          transition: 'transform 0.3s',
-                          transform:
-                            openCategory === category.id
-                              ? 'rotate(180deg)'
-                              : 'rotate(0deg)',
-                        }}
-                      >
-                        ▼
-                      </span>
-                    </button>
-                    <AnimatePresence>
-                      {openCategory === category.id && (
-                        <motion.div
-                          className="  bg-[#43434043]"
-                          initial={{ opacity: 0, y: '-30%', scale: 0.5 }}
-                          animate={{ opacity: 1, y: '0%', scale: 1 }}
-                          exit={{ opacity: 0, y: '-30%', scale: 0.5 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          {apiData?.filters
-                            ?.filter(
-                              (filter) =>
-                                filter.filter_category === category.id,
-                            )
-                            .map((filter) => (
-                              <li
-                                key={filter.id}
-                                className="py-[15px] px-[20px] cursor-pointer hover:bg-[#3E3E3E] flex items-center justify-between "
-                                onClick={() => toggleFilter(filter.id)}
-                              >
-                                <span>{filter.title}</span>
-                                <input
-                                  type="checkbox"
-                                  className="w-[20px] h-[20px] text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-red transition duration-200 ease-in-out hover:bg-red"
-                                  checked={filters1.includes(filter.id)} // Check if filter is selected
-                                  readOnly
-                                />
-                              </li>
-                            ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="w-[65%] lg:w-[95%] lg:mx-auto">
-          {apiData?.resources?.results?.length > 0 &&
-            apiData?.resources?.results.map((e, i) => (
+        <div className="w-[65%] lg:w-[95%] lg:mx-auto m-20">
+          {apiData?.results?.resources?.length > 0 &&
+            apiData?.results?.resources.map((e, i) => (
               <div
                 className="w-full flex items-start gap-1 h-[300px] sm:h-[86vh] sm:flex-col"
                 key={e?.id}
@@ -453,9 +269,8 @@ export default function Shablon() {
                   <img
                     className="bg-black h-[85%] w-full sm:mx-auto sm:block rounded"
                     onClick={() => navigate(`/cardDetail/${e?.id}`)}
-                    src={`${e?.image}`}
+                    src={`https://backend.tarixmanba.uz${e?.image}`}
                   />
-
                   <div className="w-[100%] flex justify-between md:px-0 text-white pt-[15px]">
                     <span className="flex gap-[3px] text-[15px] items-center">
                       <IoMdEye className="text-[18px] md:text-[16px]" />

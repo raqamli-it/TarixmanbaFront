@@ -5,7 +5,7 @@
   list-style-type: none;
   text-decoration: none;
 }
-
+//bar-list-item
 .full__data__picer {
   display: flex;
   gap: 5px !important;
@@ -309,6 +309,9 @@ header {
                   justify-content: center;
                   gap: 5px;
                 }
+                .search-input{
+                  background-color: #605a5a;
+                }
               }
               .bar-list-item-manba {
                 padding: 0px 15px;
@@ -600,7 +603,7 @@ header {
     }
   }
 }
-
+//bar-src-btn
 @media (max-width: 915px) {
   header {
     nav {

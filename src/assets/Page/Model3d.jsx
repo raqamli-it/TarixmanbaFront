@@ -11,7 +11,10 @@ const Model3d = () => {
       <Scene>
         {/* Yorug'lik qo'shish */}
         <Entity light={{ type: 'ambient', color: '#888' }} />
-        <Entity light={{ type: 'directional', color: '#fff', intensity: 0.5 }} position="1 1 1" />
+        <Entity
+          light={{ type: 'directional', color: '#fff', intensity: 0.5 }}
+          position="1 1 1"
+        />
 
         {/* Kamera qo'shish */}
         <Entity primitive="a-camera" position="0 1.6 0">
@@ -20,7 +23,10 @@ const Model3d = () => {
 
         {/* 3D model qo'shish */}
         <a-assets>
-          <a-asset-item id="sampleModel" src="/models/sample-model.gltf"></a-asset-item>
+          <a-asset-item
+            id="sampleModel"
+            src="/models/sample-model.gltf"
+          ></a-asset-item>
         </a-assets>
 
         <Entity
@@ -31,7 +37,14 @@ const Model3d = () => {
         />
 
         {/* Yerni qo'shish */}
-        <Entity primitive="a-plane" position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" />
+        <Entity
+          primitive="a-plane"
+          position="0 0 -4"
+          rotation="-90 0 0"
+          width="4"
+          height="4"
+          color="#7BC8A4"
+        />
 
         {/* Osmon qo'shish */}
         <Entity primitive="a-sky" color="#ECECEC" />
