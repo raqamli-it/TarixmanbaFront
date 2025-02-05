@@ -1,6 +1,7 @@
 import React from 'react';
 import Acardion from '../Components/Home/Acardion';
 import HomeCardsArchi from '../Components/Home/HomeCardsArchi';
+import MapComponent from '../Components/component/MapComponent';
 // import HomeCardMedia from '../Components/Home/HomeCardMedia'
 // // import Shu from '../Components/component/Shu'
 // // import DemoShablon from './DemoShablon'
@@ -15,7 +16,6 @@ import { useState } from 'react';
 export default function Home() {
   return (
     <main>
-      
       <Acardion />
       {/* <Map /> */}
       {/* <Tabs /> */}
@@ -23,6 +23,7 @@ export default function Home() {
 
       {/* <Namuna /> */}
       <HomeCardsArchi />
+      <MapComponent />
 
       {/* <HomeCardsFolkArt />
         <HomeCardsLetter />

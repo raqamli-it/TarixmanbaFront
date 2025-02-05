@@ -1,34 +1,34 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { DataService } from '../config/dataService';
-import { endpoints } from '../config/endpoints';
-import { IoMdEye } from 'react-icons/io';
-import { MdMessage } from 'react-icons/md';
-import { FaPlay, FaStar } from 'react-icons/fa6';
-import { AnimatePresence, motion } from 'framer-motion';
-import LoaderCard from '../Components/component/LoaderCard';
-import Skeleton from '../Components/component/Skleton';
-import SkletonFilter from '../Components/component/SkletonFilter';
-import { LuRotate3D } from 'react-icons/lu';
-import { FaGlobeAmericas } from 'react-icons/fa';
-import { GrTextWrap } from 'react-icons/gr';
-import { BiSolidVideos } from 'react-icons/bi';
-import { FaImages } from 'react-icons/fa';
-import { PiFileAudioFill } from 'react-icons/pi';
-import { IoCloseOutline } from 'react-icons/io5';
-import { CiPause1 } from 'react-icons/ci';
-import { TiArrowLoop } from 'react-icons/ti';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import CardDetailMap from '../Components/component/CardDetailMap';
-import { saveAs } from 'file-saver';
-import VideoLink from '../Components/component/VideoLink';
-import MyErrorBoundary from '../Components/component/MyErrorBoundary';
-import { IoIosSearch, IoIosArrowUp } from 'react-icons/io';
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { DataService } from "../config/dataService";
+import { endpoints } from "../config/endpoints";
+import { IoMdEye } from "react-icons/io";
+import { MdMessage } from "react-icons/md";
+import { FaPlay, FaStar } from "react-icons/fa6";
+import { AnimatePresence, motion } from "framer-motion";
+import LoaderCard from "../Components/component/LoaderCard";
+import Skeleton from "../Components/component/Skleton";
+import SkletonFilter from "../Components/component/SkletonFilter";
+import { LuRotate3D } from "react-icons/lu";
+import { FaGlobeAmericas } from "react-icons/fa";
+import { GrTextWrap } from "react-icons/gr";
+import { BiSolidVideos } from "react-icons/bi";
+import { FaImages } from "react-icons/fa";
+import { PiFileAudioFill } from "react-icons/pi";
+import { IoCloseOutline } from "react-icons/io5";
+import { CiPause1 } from "react-icons/ci";
+import { TiArrowLoop } from "react-icons/ti";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import CardDetailMap from "../Components/component/CardDetailMap";
+import { saveAs } from "file-saver";
+import VideoLink from "../Components/component/VideoLink";
+import MyErrorBoundary from "../Components/component/MyErrorBoundary";
+import { IoIosSearch, IoIosArrowUp } from "react-icons/io";
 
 export default function Shablon() {
   const [filters1, setFilters1] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [periodFilter, setPeriodFilter] = useState([]);
   const [selectedPeriods, setSelectedPeriods] = useState([]);
   const [openCategory, setOpenCategory] = useState(null);
@@ -46,10 +46,10 @@ export default function Shablon() {
     setIsLoading(true);
     setIsSuccess(false);
     setProgress(0);
-    const pdfUrl = 'path/to/your/pdf/file.pdf';
+    const pdfUrl = "path/to/your/pdf/file.pdf";
     await fetch(pdfUrl)
       .then((response) => {
-        const total = parseInt(response.headers.get('content-length'), 10);
+        const total = parseInt(response.headers.get("content-length"), 10);
         const reader = response.body.getReader();
         let receivedLength = 0;
         return new Response(
@@ -69,12 +69,12 @@ export default function Shablon() {
               }
               push();
             },
-          }),
+          })
         );
       })
       .then((response) => response.blob())
       .then((blob) => {
-        saveAs(blob, 'downloaded-file.pdf');
+        saveAs(blob, "downloaded-file.pdf");
         setIsLoading(false);
         setIsSuccess(true);
         setTimeout(() => {
@@ -129,22 +129,22 @@ export default function Shablon() {
       const queryParams = new URLSearchParams();
       if (filters1.length > 0) {
         filters1.forEach((filter) => {
-          queryParams.append('filters', filter);
+          queryParams.append("filters", filter);
         });
       }
       if (periodFilter.length > 0) {
         periodFilter.forEach((filter) => {
-          queryParams.append('period_filter', filter);
+          queryParams.append("period_filter", filter);
         });
       }
       if (search) {
-        queryParams.append('search', search.trim());
-        // console.log(search);
+        queryParams.append("search", search.trim());
+        // console.log(search);Davr
       }
-      queryParams.append('page', page);
+      queryParams.append("page", page);
       console.log(queryParams.toString());
       const fullUrl = `${endpoints.categoryResourceApiById(
-        `${route?.id}/`,
+        `${route?.id}/`
       )}?${queryParams.toString()}`;
       console.log(fullUrl);
       const response = await DataService.get(fullUrl);
@@ -152,7 +152,7 @@ export default function Shablon() {
       setTotalPages(Math.ceil(response.resources.count / 20)); // Sahifa sonini hisoblash (20 elementdan iborat deb hisobladik)
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       setLoading(false);
     }
   };
@@ -197,11 +197,11 @@ export default function Shablon() {
             key={i}
             onClick={() => handlePageChange(i)}
             className={`px-2 py-1 mx-1 rounded ${
-              i === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200'
+              i === currentPage ? "bg-blue-500 text-white" : "bg-gray-200"
             }`}
           >
             {i}
-          </button>,
+          </button>
         );
       } else if (
         (i === currentPage - 2 || i === currentPage + 2) &&
@@ -214,7 +214,7 @@ export default function Shablon() {
             className="px-2 py-1 mx-1 rounded bg-gray-200"
           >
             ...
-          </button>,
+          </button>
         );
       }
     }
@@ -226,7 +226,7 @@ export default function Shablon() {
           disabled={currentPage === 1}
           className="px-3 py-1 mx-1 bg-gray-200 rounded disabled:opacity-50"
         >
-          {'<'}
+          {"<"}
         </button>
 
         {pages}
@@ -235,7 +235,7 @@ export default function Shablon() {
           disabled={currentPage === totalPages}
           className="px-3 py-1 mx-1 bg-gray-200 rounded disabled:opacity-50"
         >
-          {'>'}
+          {">"}
         </button>
       </div>
     );
@@ -246,19 +246,19 @@ export default function Shablon() {
       setIsSticky(window.scrollY > 150);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleSearch = () => {
-    const value = searchInputRef.current?.value || '';
+    const value = searchInputRef.current?.value || "";
     toggleSearch(value);
   };
 
   return (
     <>
       <div className="bg-transparent flex justify-between gap-5 py-10 lg:flex-col">
-        <div className="sticky top-0 p-11 w-[35%] text-white lg:w-4/5 lg:mx-auto sm:w-full">
+        <div className="sticky p-11 w-[35%] text-white lg:w-4/5 lg:mx-auto sm:w-full">
           <div className={`w-[100%]`}>
             <div className="w-full pb-[40px] ">
               {apiData?.category ? (
@@ -293,24 +293,24 @@ export default function Shablon() {
                     onClick={() => setOchil(!ochil)}
                     className={
                       ochil
-                        ? ' w-[100%] text-[20px] bg-[#40403F] rounded hover:bg-[#191a19] transition-all duration-500 py-[15px]'
-                        : ' w-[100%] text-[20px] hover:bg-[#1E201E] transition-all duration-500 py-[15px]'
+                        ? " w-[100%] text-[20px] bg-[#40403F] rounded hover:bg-[#191a19] transition-all duration-500 py-[15px]"
+                        : " w-[100%] text-[20px] hover:bg-[#1E201E] transition-all duration-500 py-[15px]"
                     }
                     style={{
-                      textAlign: 'left',
-                      cursor: 'pointer',
-                      position: 'relative',
+                      textAlign: "left",
+                      cursor: "pointer",
+                      position: "relative",
                     }}
                   >
-                    Davr bo'yicha
+                    Chog'lar
                     <span
                       style={{
-                        fontSize: '16px',
-                        position: 'absolute',
-                        right: '20px',
-                        top: '30%',
-                        transition: 'transform 0.3s',
-                        transform: ochil ? 'rotate(180deg)' : 'rotate(0deg)',
+                        fontSize: "16px",
+                        position: "absolute",
+                        right: "20px",
+                        top: "30%",
+                        transition: "transform 0.3s",
+                        transform: ochil ? "rotate(180deg)" : "rotate(0deg)",
                       }}
                     >
                       ▼
@@ -321,9 +321,9 @@ export default function Shablon() {
                     {ochil && (
                       <motion.div
                         className="p-5 bg-[#43434223] overflow-x-hidden mx-auto"
-                        initial={{ opacity: 0, y: '-30%', scale: 0.5 }}
-                        animate={{ opacity: 1, y: '0%', scale: 1 }}
-                        exit={{ opacity: 0, y: '-30%', scale: 0.5 }}
+                        initial={{ opacity: 0, y: "-30%", scale: 0.5 }}
+                        animate={{ opacity: 1, y: "0%", scale: 1 }}
+                        exit={{ opacity: 0, y: "-30%", scale: 0.5 }}
                         transition={{ duration: 0.2 }}
                       >
                         {apiData?.period_filters?.map((period) => (
@@ -348,8 +348,8 @@ export default function Shablon() {
                                   // Agar tanlangan bo'lsa, o'chirish
                                   setSelectedPeriods(
                                     selectedPeriods.filter(
-                                      (id) => id !== period.id,
-                                    ),
+                                      (id) => id !== period.id
+                                    )
                                   );
                                 } else {
                                   // Aks holda, qo'shish
@@ -367,7 +367,7 @@ export default function Shablon() {
                   </AnimatePresence>
                 </div>
               ) : (
-                ''
+                ""
               )}
               <div className="transition-all duration-500">
                 {apiData?.filter_categories?.map((category) => (
@@ -376,28 +376,28 @@ export default function Shablon() {
                       onClick={() => handleCategoryClick(category.id)}
                       className={
                         openCategory === category.id
-                          ? ' w-[100%] text-[20px] bg-[#40403F] rounded hover:bg-[#191a19] transition-all duration-500 py-[15px]'
-                          : ' w-[100%] text-[20px] rounded hover:bg-[#1E201E] transition-all duration-500 py-[15px]'
+                          ? " w-[100%] text-[20px] bg-[#40403F] rounded hover:bg-[#191a19] transition-all duration-500 py-[15px]"
+                          : " w-[100%] text-[20px] rounded hover:bg-[#1E201E] transition-all duration-500 py-[15px]"
                       }
                       style={{
-                        width: '100%',
-                        textAlign: 'left',
-                        cursor: 'pointer',
-                        position: 'relative',
+                        width: "100%",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        position: "relative",
                       }}
                     >
                       {category.title}
                       <span
                         style={{
-                          fontSize: '16px',
-                          position: 'absolute',
-                          right: '20px',
-                          top: '30%',
-                          transition: 'transform 0.3s',
+                          fontSize: "16px",
+                          position: "absolute",
+                          right: "20px",
+                          top: "30%",
+                          transition: "transform 0.3s",
                           transform:
                             openCategory === category.id
-                              ? 'rotate(180deg)'
-                              : 'rotate(0deg)',
+                              ? "rotate(180deg)"
+                              : "rotate(0deg)",
                         }}
                       >
                         ▼
@@ -407,15 +407,14 @@ export default function Shablon() {
                       {openCategory === category.id && (
                         <motion.div
                           className="  bg-[#43434043]"
-                          initial={{ opacity: 0, y: '-30%', scale: 0.5 }}
-                          animate={{ opacity: 1, y: '0%', scale: 1 }}
-                          exit={{ opacity: 0, y: '-30%', scale: 0.5 }}
+                          initial={{ opacity: 0, y: "-30%", scale: 0.5 }}
+                          animate={{ opacity: 1, y: "0%", scale: 1 }}
+                          exit={{ opacity: 0, y: "-30%", scale: 0.5 }}
                           transition={{ duration: 0.2 }}
                         >
                           {apiData?.filters
                             ?.filter(
-                              (filter) =>
-                                filter.filter_category === category.id,
+                              (filter) => filter.filter_category === category.id
                             )
                             .map((filter) => (
                               <li
@@ -495,12 +494,12 @@ export default function Shablon() {
                       style={{
                         color:
                           e?.audios && e?.audios?.length > 0
-                            ? '#fff'
-                            : '#a9a7a7',
+                            ? "#fff"
+                            : "#a9a7a7",
                         cursor:
                           e?.audios && e?.audios?.length > 0
-                            ? 'pointer'
-                            : 'not-allowed',
+                            ? "pointer"
+                            : "not-allowed",
                       }}
                     >
                       Eshtuv
@@ -515,12 +514,12 @@ export default function Shablon() {
                       style={{
                         color:
                           e?.galleries && e?.galleries?.length > 0
-                            ? '#fff'
-                            : '#a9a7a7',
+                            ? "#fff"
+                            : "#a9a7a7",
                         cursor:
                           e?.galleries && e?.galleries?.length > 0
-                            ? 'pointer'
-                            : 'not-allowed',
+                            ? "pointer"
+                            : "not-allowed",
                       }}
                       disabled={
                         e?.galleries && e?.galleries?.length > 0 ? false : true
@@ -536,11 +535,11 @@ export default function Shablon() {
                       }
                       style={{
                         color:
-                          e?.files && e?.files?.length > 0 ? '#fff' : '#a9a7a7',
+                          e?.files && e?.files?.length > 0 ? "#fff" : "#a9a7a7",
                         cursor:
                           e?.files && e?.files?.length > 0
-                            ? 'pointer'
-                            : 'not-allowed',
+                            ? "pointer"
+                            : "not-allowed",
                       }}
                       disabled={e?.files && e?.files?.length > 0 ? false : true}
                     >
@@ -555,12 +554,12 @@ export default function Shablon() {
                       style={{
                         color:
                           e?.locations && e?.locations?.length > 0
-                            ? '#fff'
-                            : '#a9a7a7',
+                            ? "#fff"
+                            : "#a9a7a7",
                         cursor:
                           e?.locations && e?.locations?.length > 0
-                            ? 'pointer'
-                            : 'not-allowed',
+                            ? "pointer"
+                            : "not-allowed",
                       }}
                       disabled={
                         e?.locations && e?.locations?.length > 0 ? false : true
@@ -579,13 +578,13 @@ export default function Shablon() {
                         color:
                           e?.virtual_realities &&
                           e?.virtual_realities?.length > 0
-                            ? '#fff'
-                            : '#a9a7a7',
+                            ? "#fff"
+                            : "#a9a7a7",
                         cursor:
                           e?.virtual_realities &&
                           e?.virtual_realities?.length > 0
-                            ? 'pointer'
-                            : 'not-allowed',
+                            ? "pointer"
+                            : "not-allowed",
                       }}
                       disabled={
                         e?.virtual_realities && e?.virtual_realities?.length > 0
@@ -604,12 +603,12 @@ export default function Shablon() {
                       style={{
                         color:
                           e?.videos && e?.videos?.length > 0
-                            ? '#fff'
-                            : '#a9a7a7',
+                            ? "#fff"
+                            : "#a9a7a7",
                         cursor:
                           e?.videos && e?.videos?.length > 0
-                            ? 'pointer'
-                            : 'not-allowed',
+                            ? "pointer"
+                            : "not-allowed",
                       }}
                       disabled={
                         e?.videos && e?.videos?.length > 0 ? false : true
@@ -734,7 +733,7 @@ export default function Shablon() {
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.95 }}
                           className={`relative px-6 py-3 font-bold text-white bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 rounded-full shadow-lg transition-transform transform ${
-                            isLoading ? 'animate-pulse' : ''
+                            isLoading ? "animate-pulse" : ""
                           }`}
                         >
                           {isLoading ? (
@@ -764,7 +763,7 @@ export default function Shablon() {
                               Yuklanmoqda...
                             </>
                           ) : (
-                            'PDF-ni yuklab olish'
+                            "PDF-ni yuklab olish"
                           )}
                         </motion.button>
                         <AnimatePresence>
@@ -775,7 +774,7 @@ export default function Shablon() {
                               exit={{ opacity: 0, y: -50 }}
                               transition={{ duration: 0.5 }}
                               className="absolute top-0 left-0 w-[400px] flex items-center justify-center bg-green-500 text-white font-bold rounded-full"
-                              style={{ top: '-3rem' }} // Adjust the position above the button
+                              style={{ top: "-3rem" }} // Adjust the position above the button
                             >
                               Muvaffaqiyatli yuklandi!
                             </motion.div>
@@ -816,12 +815,12 @@ const AudioPlayer = ({ src, key, title }) => {
     const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
     const handleLoadedMetadata = () => setDuration(audio.duration);
 
-    audio.addEventListener('timeupdate', handleTimeUpdate);
-    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
 
     return () => {
-      audio.removeEventListener('timeupdate', handleTimeUpdate);
-      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
   }, []);
 
@@ -850,7 +849,7 @@ const AudioPlayer = ({ src, key, title }) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60)
       .toString()
-      .padStart(2, '0');
+      .padStart(2, "0");
     return `${minutes}:${seconds}`;
   };
 

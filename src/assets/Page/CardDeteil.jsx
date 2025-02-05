@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from "react";
 // import image
 // import DetailImg from "../assets/img/arxeologiya4.jpg";
-import { DataService } from '../config/dataService';
-import { endpoints } from '../config/endpoints';
-import { useParams } from 'react-router-dom';
+import { DataService } from "../config/dataService";
+import { endpoints } from "../config/endpoints";
+import { useParams, useNavigate } from "react-router-dom";
 
-import { RiShareBoxLine } from 'react-icons/ri';
-import 'swiper/css';
-import { FaPlay, FaStar } from 'react-icons/fa6';
-import { CiPause1 } from 'react-icons/ci';
-import { TiArrowLoop } from 'react-icons/ti';
-import Breadcrumb from '../Components/component/Breadcrumb';
+import { RiShareBoxLine } from "react-icons/ri";
+import "swiper/css";
+import { FaPlay, FaStar } from "react-icons/fa6";
+import { CiPause1 } from "react-icons/ci";
+import { TiArrowLoop } from "react-icons/ti";
+import Breadcrumb from "../Components/component/Breadcrumb";
 // import CardDetailMap from "../components/container/CardDetailMap";
 // import Breadcrumb from "../components/container/Breadcrumb";
 // import Video from "../components/container/Video";
@@ -29,12 +29,12 @@ const AudioPlayer = ({ src, title }) => {
     const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
     const handleLoadedMetadata = () => setDuration(audio.duration);
 
-    audio.addEventListener('timeupdate', handleTimeUpdate);
-    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
 
     return () => {
-      audio.removeEventListener('timeupdate', handleTimeUpdate);
-      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
   }, []);
 
@@ -63,7 +63,7 @@ const AudioPlayer = ({ src, title }) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60)
       .toString()
-      .padStart(2, '0');
+      .padStart(2, "0");
     return `${minutes}:${seconds}`;
   };
 
@@ -121,6 +121,15 @@ const AudioPlayer = ({ src, title }) => {
 export default function CardDeteil() {
   // img carousel
   const route = useParams();
+  const navigate = useNavigate();
+  const buttonRef = useRef(null);
+
+  const handleGoBack = () => {
+    navigate(-1); // Oldingi sahifaga qaytish
+    setTimeout(() => {
+      buttonRef.current?.focus(); // Fokusni tiklash
+    }, 100); // Qisqa kechikish bilan tiklash
+  };
 
   // bu qism api lar bilan ishlash uchun
   const [apiData, setApiData] = useState([]);
@@ -135,10 +144,10 @@ export default function CardDeteil() {
   const fetchData = async () => {
     // console.log(route);
     const response = await DataService.get(
-      endpoints.categoryResourceDetailById(route?.id),
+      endpoints.categoryResourceDetailById(route?.id)
     );
     setApiData(response);
-    console.log(response, 'detaildan chiqdi  shulass');
+    console.log(response, "detaildan chiqdi  shulass");
   };
 
   useEffect(() => {
@@ -151,7 +160,7 @@ export default function CardDeteil() {
     const webName = encodeURIComponent(`${apiData?.title}`);
     const imageUrl = encodeURIComponent(`${apiData?.image}`);
     const telegramUrl = `https://t.me/share/url?url=${url}&webName=${webName}&text=${text}%0A%0A${imageUrl}`;
-    window.open(telegramUrl, '_blank');
+    window.open(telegramUrl, "_blank");
   };
 
   return (
@@ -162,11 +171,17 @@ export default function CardDeteil() {
           deteil={apiData?.title}
           link={`/sources/archive/${apiData.category}`}
         />
-
+        <button
+          ref={buttonRef}
+          onClick={handleGoBack}
+          className="bg-blue-500 opacity-30 text-white py-2 px-4 rounded hover:opacity-90 transition"
+        >
+          Orqaga
+        </button>
         <section
           className="bg-[#2b2a2a] m-[20px]"
           style={{
-            backgroundColor: 'transparent',
+            backgroundColor: "transparent",
             //backgroundImage: `linear-gradient(12deg, rgba(193, 193, 193,0.05) 0%, rgba(193, 193, 193,0.05) 2%,rgba(129, 129, 129,0.05) 2%, rgba(129, 129, 129,0.05) 27%,rgba(185, 185, 185,0.05) 27%, rgba(185, 185, 185,0.05) 66%,rgba(83, 83, 83,0.05) 66%, rgba(83, 83, 83,0.05) 100%),linear-gradient(321deg, rgba(240, 240, 240,0.05) 0%, rgba(240, 240, 240,0.05) 13%,rgba(231, 231, 231,0.05) 13%, rgba(231, 231, 231,0.05) 34%,rgba(139, 139, 139,0.05) 34%, rgba(139, 139, 139,0.05) 71%,rgba(112, 112, 112,0.05) 71%, rgba(112, 112, 112,0.05) 100%),linear-gradient(236deg, rgba(189, 189, 189,0.05) 0%, rgba(189, 189, 189,0.05) 47%,rgba(138, 138, 138,0.05) 47%, rgba(138, 138, 138,0.05) 58%,rgba(108, 108, 108,0.05) 58%, rgba(108, 108, 108,0.05) 85%,rgba(143, 143, 143,0.05) 85%, rgba(143, 143, 143,0.05) 100%),linear-gradient(96deg, rgba(53, 53, 53,0.05) 0%, rgba(53, 53, 53,0.05) 53%,rgba(44, 44, 44,0.05) 53%, rgba(44, 44, 44,0.05) 82%,rgba(77, 77, 77,0.05) 82%, rgba(77, 77, 77,0.05) 98%,rgba(8, 8, 8,0.05) 98%, rgba(8, 8, 8,0.05) 100%),linear-gradient(334deg, hsl(247,0%,2%),hsl(247,0%,2%))`,
           }}
         >
@@ -215,4 +230,3 @@ export default function CardDeteil() {
     </>
   );
 }
-import { useRef } from 'react';

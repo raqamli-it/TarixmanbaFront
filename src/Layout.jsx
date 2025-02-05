@@ -57,30 +57,30 @@ export default function Layout() {
             <h1 className="color__switcher__title">Rang tanlang</h1>
             <div className="color__list ">
               <div
-                className="color__item bgThreecolor"
-                onClick={() => onchangeMode("bgThree")}
+                className="color__item bg6_"
+                onClick={() => onchangeMode("bg6")}
               ></div>
 
               <div
-                className="color__item bgSevencolor"
-                onClick={() => onchangeMode("bgSeven")}
+                className="color__item bg1_"
+                onClick={() => onchangeMode("bg1")}
               ></div>
               <div
-                className="color__item bgEightcolor"
-                onClick={() => onchangeMode("bgEight")}
+                className="color__item bg2_"
+                onClick={() => onchangeMode("bg2")}
               ></div>
 
               <div
-                className="color__item bg10color"
-                onClick={() => onchangeMode("bg10")}
+                className="color__item bg3_"
+                onClick={() => onchangeMode("bg3")}
               ></div>
               <div
-                className="color__item bg11color"
-                onClick={() => onchangeMode("bg11")}
+                className="color__item bg4_"
+                onClick={() => onchangeMode("bg4")}
               ></div>
               <div
-                className="color__item bg12color"
-                onClick={() => onchangeMode("bg12")}
+                className="color__item bg5_"
+                onClick={() => onchangeMode("bg5")}
               ></div>
             </div>
           </div>

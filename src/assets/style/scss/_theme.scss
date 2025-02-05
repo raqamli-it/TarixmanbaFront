@@ -6,24 +6,24 @@
 
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.452), rgba(0, 0, 0, 0.752)),
-    url("https://historicalsamarkand.wordpress.com/wp-content/uploads/2018/04/20bdf34ab2e91e692cfe9e5a70a5f4eb.jpg?w=1600");
+    url("../../../public/yengiFon7.jpg");
   transition: 0.5s;
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
-body.bgThree {
+body.bg1 {
   background: linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.179)),
-    url("https://historicalsamarkand.wordpress.com/wp-content/uploads/2018/04/20bdf34ab2e91e692cfe9e5a70a5f4eb.jpg?w=1600");
+    url("../../../public/yengiFon1.jpg") !important;
   transition: 0.5s;
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
 
-body.bgSeven {
+body.bg2 {
   background: linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.179)),
-    url("https://img.pikbest.com/back_our/20210203/bg/829f4a95b3814.png!w700wp") !important;
+    url("../../../public/yengiFon2.jpg") !important;
   background-size: cover !important;
   background-position: center !important;
   background-attachment: fixed !important;
@@ -31,9 +31,9 @@ body.bgSeven {
   background-repeat: no-repeat !important;
 }
 //
-body.bgEight {
+body.bg3 {
   background: linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.179)),
-    url("https://lh3.googleusercontent.com/p/AF1QipPBjHPL8egSBQuedenwIwD5q3vwUV2ZuwPl13wK=s1260-w1360-h1020") !important;
+    url("../../../public/yengiFon3.jpg") !important;
   background-size: cover !important;
   background-position: center !important;
   background-attachment: fixed !important;
@@ -41,27 +41,27 @@ body.bgEight {
   background-repeat: no-repeat !important;
 }
 // https://yuz.uz/imageproxy/1200x/https://yuz.uz/file/news/a2f34dfb0dfad1007146b2212d108890.jpg
-body.bg10 {
+body.bg4 {
   background: linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.179)),
-    url("https://tourquality.uz/upload/iblock/257/nzpkfm5qgjmve2v6b69y6a4b5ka66erc.jpg") !important;
+    url("../../../public/yengiFon4.jpg") !important;
   background-size: cover !important;
   background-position: center !important;
   background-attachment: fixed !important;
   transition: 0.5s;
   background-repeat: no-repeat !important;
 }
-body.bg11 {
+body.bg5 {
   background: linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.179)),
-    url("https://yuz.uz/imageproxy/1200x/https://yuz.uz/file/news/a2f34dfb0dfad1007146b2212d108890.jpg") !important;
+    url("../../../public/yengiFon5.jpg") !important;
   background-size: cover !important;
   background-position: center !important;
   background-attachment: fixed !important;
   transition: 0.5s;
   background-repeat: no-repeat !important;
 }
-body.bg12 {
+body.bg6 {
   background: linear-gradient(rgba(0, 0, 0, 0.541), rgba(0, 0, 0, 0.179)),
-    url("https://img.freepik.com/premium-vector/golden-mandala-background-with-mandala-pattern-wedding-invitation_761928-38.jpg?w=740") !important;
+    url("../../../public/yengiFon6.jpg") !important;
   background-size: cover !important;
   background-position: center !important;
   background-attachment: fixed !important;
@@ -182,28 +182,28 @@ body {
   background-size: 60px 60px;
 }
 
-.bgSevencolor {
+.bg1_ {
   // url("0");
-  background-image: url("https://historicalsamarkand.wordpress.com/wp-content/uploads/2018/04/20bdf34ab2e91e692cfe9e5a70a5f4eb.jpg?w=160") !important;
+  background-image: url("../../../public/yengiFon1.jpg") !important;
   background-size: contain;
 }
-.bgEightcolor {
+.bg2_ {
   background-image: url("../../../public/yengiFon2.jpg") !important;
   background-size: contain;
 }
-.bgNinecolor {
+.bg3_ {
   background-image: url("../../../public/yengiFon3.jpg");
   background-size: contain;
 }
-.bg10color {
+.bg4_ {
   background-image: url("../../../public/yengiFon4.jpg");
   background-size: contain;
 }
-.bg11color {
+.bg5_ {
   background-image: url("../../../public/yengiFon5.jpg");
   background-size: contain;
 }
-.bg12color {
+.bg6_ {
   background-image: url("../../../public/yengiFon6.jpg");
   background-size: contain;
 }

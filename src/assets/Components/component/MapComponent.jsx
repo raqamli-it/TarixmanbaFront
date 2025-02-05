@@ -1,135 +1,149 @@
+import React, { useEffect, useState } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  LayersControl,
+  Marker,
+  Popup,
+} from "react-leaflet";
 
+import "leaflet/dist/leaflet.css";
 
+import { Link } from "react-router-dom";
+import L from "leaflet";
+import { endpoints } from "../../config/endpoints";
+import { DataService } from "../../config/dataService";
 
-// // MapComponent.js
-// import React, { useEffect, useRef } from 'react';
-// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-// import '../../../../node_modules/leaflet/dist/leaflet.css';
-// import 'leaflet-control-geocoder/dist/Control.Geocoder.css'; // Geocoder pluqini CSS faylini import qilish
-// import 'leaflet-control-geocoder/dist/Control.Geocoder';
-// // import 'leaflet.css';
+const { BaseLayer } = LayersControl;
+const customIcon = new L.Icon({
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+  iconSize: [30, 30],
+});
 
-// import L from 'leaflet';
-// // import { markersData } from './Markers';
+const MapComponent = () => {
+  const [locations, setLocations] = useState([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false); // Add loading state
+  const [error, setError] = useState(null); // Add error state
 
-// // Default marker icon pathini to'g'irlash
-// delete L.Icon.Default.prototype._getIconUrl;
-
-// L.Icon.Default.mergeOptions({
-//   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-//   iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-//   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-// });
-
-// const MapComponent = () => {
-//   const mapRef = useRef("england");
-
-//   useEffect(() => {
-//     if (mapRef.current) {
-//       const map = mapRef.current.leafletElement;
-//       const geocoder = L.Control.geocoder({
-//         defaultMarkGeocode: false,
-//       }).addTo(map);
-//     }
-//   }, []);
-//   const markersData = [
-//     { id: 1, position: [40.7128, -74.0060], popupText: 'obidalarmu' },
-//     { id: 2, position: [39.652451, 66.970139], popupText: 'Toshkentdagi aha oho' },
-//     { id: 3, position: [41.8781, -87.6298], popupText: 'Chicago, IL' },
-//     //   [41.311081, 69.240562], popupText: 'obidalarmu' },
-//     // { id: 2, position: [39.652451, 66.970139]
-//     // Yana boshqa markerlar qo'shing
-//   ];
-//   return (
-//     <>
-//       <MapContainer center={[41.311081, 69.240562]} zoom={4} className="leaflet-container  lg:w-[800px] md:w-[640px] h-[50vh] sm:w-[400px] w-[300px]" ref={mapRef}>
-//         <TileLayer
-//           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-//         />
-//         {markersData.map(marker => (
-//           <Marker key={marker.id} position={marker.position}>
-//             <Popup>
-//               <b>{marker.popupText}</b>
-//             </Popup>
-//           </Marker>
-//         ))}
-//       </MapContainer>
-//     </>
-
-//   );
-// };
-
-// export default MapComponent;
-
-import React, { useState, useRef, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-
-// Belgilangan joylar ro'yxati
-const locations = [
-  { id: 1, name: 'Place 1', position: [51.505, -0.09] },
-  { id: 2, name: 'Place 2', position: [51.515, -0.1] },
-  { id: 3, name: 'Place 3', position: [51.52, -0.12] },
-];
-
-const SearchControl = ({ searchValue, setSearchValue, markers }) => {
-  const map = useMap();
-
-  const handleSearch = () => {
-    const location = markers.current.find(marker => marker.options.title.toLowerCase().includes(searchValue.toLowerCase()));
-    if (location) {
-      map.setView(location.getLatLng(), 13);
-      location.openPopup();
-    } else {
-      alert('Location not found');
+  const maps = [
+    {
+      name: "OSM",
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    },
+    {
+      name: "Satellite",
+      url: "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+    },
+    {
+      name: "Carto",
+      url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+    },
+    {
+      name: "Esri",
+      url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+    },
+  ];
+  const fetchCategories = async () => {
+    try {
+      const response = await DataService.get(endpoints.categoryResourceApi);
+      setCategories(response);
+    } catch (error) {
+      setError("Error fetching categories");
+      console.error("Error fetching categories:", error);
     }
   };
 
+  const fetchLocations = async (categoryId) => {
+    if (!categoryId) return; // Prevent unnecessary API call for null categoryId
+
+    setLoading(true); // Set loading state to true
+    try {
+      const response = await DataService.get(
+        endpoints.locationApiById(categoryId)
+      );
+      setLocations(response);
+      setLoading(false); // Set loading state to false after data is fetched
+    } catch (error) {
+      setError("Error fetching locations");
+      console.error("Error fetching locations:", error);
+      setLoading(false); // Set loading state to false in case of error
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    if (selectedCategoryId !== null) {
+      fetchLocations(selectedCategoryId);
+    }
+  }, [selectedCategoryId]);
+
   return (
-    <div style={{ position: 'absolute', top: 30, right: 10, zIndex: 1000, display: 'flex', gap: "0" }}>
-      <input
-        style={{ border: '1px solid black', borderRadius: '10px', outline: "0", borderTopRightRadius: "0", borderBottomRightRadius: "0", borderRight: "none", padding: "5px" }}
-        type="text"
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-        placeholder="Search location..."
-      />
-      <button
-        style={{ border: '1px solid black', borderTopRightRadius: '10px', borderBottomRightRadius: "10px", borderTopLeftRadius: "0", borderBottomLeftRadius: "0", borderLeft: "none", padding: "5px", background: "#fff", cursor: "pointer" }}
-
-        onClick={handleSearch}>Izlash</button>
-    </div>
-  );
-};
-
-const MapComponent = () => {
-  const [searchValue, setSearchValue] = useState('');
-  const markersRef = useRef([]);
-
-  return (
-    <div className='w-[100%] h-[100%] rounded-[10px]'>
-      <MapContainer center={[51.505, -0.09]} zoom={13} className="leaflet-container  lg:w-[800px] md:w-[640px] h-[50vh] sm:w-[400px] w-[300px] rounded-2xl " >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        {locations.map((loc, index) => (
-          <Marker
-            key={loc.id}
-            position={loc.position}
-            title={loc.name}
-            ref={(el) => markersRef.current[index] = el}
+    <>
+      <div className="flex justify-center">
+        <h1 className="text-2xl font-bold text-white">Interaktiv Xarita</h1>
+      </div>
+      <div className="p-4 flex justify-center">
+        <div className="flex w-2/3 h-full flex-wrap gap-3">
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setSelectedCategoryId(category.id)}
+              className={`px-2 md:px-2 lg:px-2 py-1 md:py-0 lg:py-1 rounded-full border text-sm md:text-sm lg:text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+                selectedCategoryId === category.id
+                  ? "bg-blue-600 text-white border-blue-600"
+                  : "bg-white text-gray-700 border-gray-300"
+              }`}
+            >
+              {category.title}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-col justify-center items-center h-screen">
+        <div className="w-4/6 h-5/6 md:w-3/4 lg:w-2/3 rounded-lg shadow-lg overflow-hidden">
+          {loading && <div className="text-white">Loading...</div>}{" "}
+          {/* Loading indicator */}
+          {error && <div className="text-red-500">{error}</div>}{" "}
+          {/* Error message */}
+          <MapContainer
+            center={[41.2995, 69.2401]}
+            zoom={6}
+            className="w-full h-full"
+            scrollWheelZoom={false}
           >
-            <Popup>{loc.name}</Popup>
-          </Marker>
-        ))}
-        <SearchControl searchValue={searchValue} setSearchValue={setSearchValue} markers={markersRef} />
-      </MapContainer>
-    </div>
+            <LayersControl position="topright">
+              {maps.map((item, index) => (
+                <BaseLayer name={item.name} index={index} checked={index === 0}>
+                  <TileLayer url={item.url} />
+                </BaseLayer>
+              ))}
+            </LayersControl>
+            {locations.map((location, index) => (
+              <Marker
+                key={index}
+                position={[
+                  parseFloat(location.latitude),
+                  parseFloat(location.longitude),
+                ]}
+                icon={customIcon}
+              >
+                <Popup>
+                  <Link to={`/cardDetail/${location.resource_id}`}>
+                    <strong>{location.resource_title}</strong>
+                  </Link>
+                </Popup>
+              </Marker>
+            ))}
+          </MapContainer>
+        </div>
+      </div>
+    </>
   );
 };
 
 export default MapComponent;
-

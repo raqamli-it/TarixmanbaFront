@@ -6,6 +6,16 @@ $defaultSeconds: 3s;
   width: 500px;
   height: 500px;
   opacity: 0.5;
+  filter: grayscale(50%);
+  animation: circleAnimation 25s infinite linear;
+}
+@keyframes circleAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .acardions {

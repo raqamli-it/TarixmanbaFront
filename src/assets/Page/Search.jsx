@@ -42,6 +42,8 @@ export default function Search() {
   const fileSize = 1024;
   const [isSticky, setIsSticky] = useState(false);
   const [progress, setProgress] = useState(0);
+  const location = useLocation();
+  const [query, setQuery] = useState(location.state || {});
   const handleDownload = async () => {
     setIsLoading(true);
     setIsSuccess(false);
@@ -85,76 +87,20 @@ export default function Search() {
         setIsLoading(false);
       });
   };
-  const location = useLocation();
-  const { query } = location.state || {};
-  console.log(query);
+
   const navigate = useNavigate();
   const route = useParams();
   const searchInputRef = useRef(null);
 
-  const togglePeriod = (periodId) => {
-    setPeriodFilter((prev) => {
-      if (periodFilter.includes(periodId)) {
-        return periodFilter.filter((j) => j !== periodId);
-      } else {
-        return [...periodFilter, periodId];
-      }
-    });
-    // if (selectedPeriods.includes(periodId)) {
-    //   setSelectedPeriods([]);
-    //   setPeriodFilter(null);
-    // } else {
-    //   setSelectedPeriods([periodId]);
-    //   setPeriodFilter(periodId);
-    // }
-    setCurrentPage(1); // Filter o'zgarganda birinchi sahifaga o'tish
-  };
-
-  const toggleFilter = (filterId) => {
-    setFilters1((prevFilters) => {
-      if (prevFilters.includes(filterId)) {
-        return prevFilters.filter((id) => id !== filterId);
-      } else {
-        return [...prevFilters, filterId];
-      }
-    });
-    setCurrentPage(1); // Filter o'zgarganda birinchi sahifaga o'tish
-  };
-
-  const toggleSearch = (text) => {
-    setSearch(text);
-    setCurrentPage(1);
-  };
-
   const fetchData = async (page = 1) => {
     setLoading(true);
     try {
-      const queryParams = new URLSearchParams();
-      if (filters1.length > 0) {
-        filters1.forEach((filter) => {
-          queryParams.append('filters', filter);
-        });
-      }
-      if (periodFilter.length > 0) {
-        periodFilter.forEach((filter) => {
-          queryParams.append('period_filter', filter);
-        });
-      }
-      if (search) {
-        queryParams.append('search', search.trim());
-        // console.log(search);
-      }
-      queryParams.append('page', page);
-      console.log(queryParams.toString());
-      const fullUrl = `${endpoints.categoryResourceApiById(
-        `${route?.id}/`,
-      )}?${queryParams.toString()}`;
-      console.log(fullUrl);
       const response = await DataService.get(
-        `https://backend.tarixmanba.uz/api/search/?q=${query}`,
+        `https://backend.tarixmanba.uz/api/search/?q=${query?.query || ''}`,
       );
+
       setApiData(response);
-      //setTotalPages(Math.ceil(response.resources.count / 20)); // Sahifa sonini hisoblash (20 elementdan iborat deb hisobladik)
+      setTotalPages(Math.ceil(response.resources.count / 20)); // Sahifa sonini hisoblash (20 elementdan iborat deb hisobladik)
       setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -175,8 +121,16 @@ export default function Search() {
   }, [search]);
 
   useEffect(() => {
+    setQuery(location.state || {});
     fetchData(currentPage);
-  }, [filters1, periodFilter, debouncedSearch, route.id, currentPage]);
+  }, [
+    location.state,
+    filters1,
+    periodFilter,
+    debouncedSearch,
+    route.id,
+    currentPage,
+  ]);
 
   const handleCategoryClick = (categoryId) => {
     setOpenCategory(openCategory === categoryId ? null : categoryId);
