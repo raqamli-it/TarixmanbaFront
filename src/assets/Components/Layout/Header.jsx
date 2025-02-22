@@ -1,38 +1,38 @@
-import React, { useRef, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useRef, useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 // //////// img lenta uchun
-import lenta1 from "../../../assets/img/lenta1.png";
-import lenta2 from "../../../assets/img/lenta2.png";
-import lenta3 from "../../../assets/img/lenta3.png";
-import lenta4 from "../../../assets/img/lenta4.png";
-import lenta6 from "../../../assets/img/lenta6.png";
-import lenta7 from "../../../assets/img/lenta7.png";
-import lentaLeft from "../../../assets/img/lenta_left.png";
-import lentaRight from "../../../assets/img/lenta_right.png";
+import lenta1 from '../../../assets/img/lenta1.png';
+import lenta2 from '../../../assets/img/lenta2.png';
+import lenta3 from '../../../assets/img/lenta3.png';
+import lenta4 from '../../../assets/img/lenta4.png';
+import lenta6 from '../../../assets/img/lenta6.png';
+import lenta7 from '../../../assets/img/lenta7.png';
+import lentaLeft from '../../../assets/img/lenta_left.png';
+import lentaRight from '../../../assets/img/lenta_right.png';
 // //////// img lenta uchun end
 
 // //////// Lenta karusel
-import Marquee from "react-fast-marquee";
+import Marquee from 'react-fast-marquee';
 
 // //////// React icon
-import { IoIosSearch, IoIosArrowUp } from "react-icons/io";
-import { CgMenuRightAlt } from "react-icons/cg";
-import { IoClose } from "react-icons/io5";
+import { IoIosSearch, IoIosArrowUp } from 'react-icons/io';
+import { CgMenuRightAlt } from 'react-icons/cg';
+import { IoClose } from 'react-icons/io5';
 // //////// React icon end
 
 // //////// Motion anime
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 // //////// Motion end
 
 //////////// Calendar
-import ReactDatePicker from "../component/ReactDatePicker";
+import ReactDatePicker from '../component/ReactDatePicker';
 /////////// Ob-havo
-import Weather from "../component/Weather";
+import Weather from '../component/Weather';
 
 /////////// Api service
-import { DataService } from "../../config/dataService";
-import { endpoints } from "../../config/endpoints";
+import { DataService } from '../../config/dataService';
+import { endpoints } from '../../config/endpoints';
 
 /////////// Api service end
 
@@ -42,10 +42,10 @@ export default function Header() {
   const fetchData = async () => {
     try {
       const response = await DataService.get(endpoints.categoryResourceApi);
-      console.log("Manba  catigory Header dan ", response);
+      console.log('Manba  catigory Header dan ', response);
       setApiData(response);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error);
     }
   };
   /////////////////////// api end
@@ -54,14 +54,14 @@ export default function Header() {
   }, []);
 
   ///////// hijriy
-  const [hijriList, setHijriList] = useState({ year: "", day: "", month: "" });
+  const [hijriList, setHijriList] = useState({ year: '', day: '', month: '' });
 
   const [time, setTime] = useState(new Date());
   const [showLn, setShowLn] = useState(false);
   const [showDRB, setShowDRB] = useState(false);
   const [showManba, setshowManba] = useState(false);
   useEffect(() => {
-    document.querySelector("body").style.overflow = showDRB ? "hidden" : "auto";
+    document.querySelector('body').style.overflow = showDRB ? 'hidden' : 'auto';
   }, [showDRB]);
 
   const valRef = useRef(null);
@@ -71,7 +71,7 @@ export default function Header() {
   const [drop, setDrop] = useState(false);
   const [maxDrop, setMaxDrop] = useState(false);
   const [loginDrop, setLoginDrop] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleClickOutside = (event) => {
     if (valRef.current && !valRef.current.contains(event.target)) {
@@ -92,14 +92,14 @@ export default function Header() {
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("mousedown", handleClickOutsideLogin);
-    document.addEventListener("mousedown", handleClickOutsideMax);
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutsideLogin);
+    document.addEventListener('mousedown', handleClickOutsideMax);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("mousedown", handleClickOutsideLogin);
-      document.removeEventListener("mousedown", handleClickOutsideMax);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutsideLogin);
+      document.removeEventListener('mousedown', handleClickOutsideMax);
     };
   }, []);
 
@@ -117,7 +117,7 @@ export default function Header() {
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      navigate("/search", { state: { query: searchQuery } });
+      navigate('/search', { state: { query: searchQuery } });
     }
   };
 
@@ -173,11 +173,11 @@ export default function Header() {
 
               <motion.div
                 className="drop-bar-menu"
-                style={{ display: showDRB ? "block" : "none" }}
+                style={{ display: showDRB ? 'block' : 'none' }}
                 initial={{ scale: 0, x: 150 }}
                 animate={{ scale: 1, x: showDRB ? 0 : 500 }}
                 transition={{
-                  type: "spring",
+                  type: 'spring',
                   stiffness: 200,
                   damping: 70,
                 }}
@@ -227,15 +227,15 @@ export default function Header() {
                   </li>
                   <motion.li
                     className="bar-list-item-manba"
-                    style={{ display: showManba ? "block" : "none" }}
+                    style={{ display: showManba ? 'block' : 'none' }}
                     animate={{ x: showManba ? 0 : 100 }}
                     transition={{
-                      type: "spring",
+                      type: 'spring',
                       stiffness: 60000,
                       damping: 190,
                     }}
                   >
-                    <ul className="manba-bar-drop">
+                    <ul className="manba-bar-drop z-50">
                       {apiData && apiData.length > 0 ? (
                         apiData.map((categoryResurs) => (
                           <li key={categoryResurs.id}>
@@ -245,12 +245,12 @@ export default function Header() {
                               onClick={() => {
                                 setShowDRB(!showDRB),
                                   console.log(
-                                    "tayoini kor1",
-                                    typeof categoryResurs.id
+                                    'tayoini kor1',
+                                    typeof categoryResurs.id,
                                   );
                               }}
                             >
-                              {/* <TbBuildingCastle /> */}
+                              {/* <TbBuildingCastle /> ////////////////////////////////////////////////*/}
                               <img
                                 className="w-[25px] h-[20px]  object-cover m-[2px]"
                                 src={categoryResurs.icon}
@@ -325,7 +325,7 @@ export default function Header() {
               className="arr"
               animate={{ rotate: drop ? 1080 : 540 }}
               transition={{
-                type: "spring",
+                type: 'spring',
                 stiffness: 560,
                 damping: 50,
               }}
@@ -333,12 +333,12 @@ export default function Header() {
               <IoIosArrowUp />
             </motion.div>
             <motion.ul
-              className={drop ? "menu-drop" : ""}
+              className={drop ? 'menu-drop' : ''}
               ref={valRef}
               initial={{ scale: 0 }}
               animate={{ scale: 1, y: drop ? 3 : 100 }}
               transition={{
-                type: "spring",
+                type: 'spring',
                 stiffness: 260,
                 damping: 20,
               }}
