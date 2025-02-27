@@ -215,6 +215,7 @@ const MapComponent = () => {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
+      <h1 className="text-white mb-5 text-[32px]">O'tmishga sayohat</h1>
       <div className="w-4/6 h-5/6 md:w-3/4 lg:w-2/3 rounded-lg shadow-lg">
         {loading && <div className="text-white">Loading...</div>}
         {error && <div className="text-red-500">{error}</div>}

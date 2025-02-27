@@ -804,10 +804,10 @@ export default function Shablon() {
             ))}
         </div>
       </div>
-
       <div className=" bg-[#202020] h-[100px] flex justify-center items-center ">
         {renderPagination()}
       </div>
+
       {routeId === 5 ? <MapComponent /> : <p></p>}
     </>
   );
