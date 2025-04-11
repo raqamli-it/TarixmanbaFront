@@ -74,11 +74,11 @@ $--second: #6b1324;
     text-decoration: none;
   }
   .people_card {
-    width: 30% !important;
+    width: 100% !important;
     border-radius: 8px;
     height: 100%;
     border: 1px solid #ccc;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    box-shadow: rgba(243, 242, 242, 0.15) 0px 5px 15px 0px;
 
     overflow: hidden;
     background-color: transparent;
@@ -100,7 +100,7 @@ $--second: #6b1324;
       letter-spacing: 0.2px;
 
       h4 {
-        color: $--main;
+        color: #ccc;
         margin-top: 0;
         font-weight: 600;
         font-size: 1.2rem;

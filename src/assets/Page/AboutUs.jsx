@@ -77,7 +77,7 @@ export default () => {
                 />
                 <div className="people_content">
                   <h4>{ishtirikchilar.full_name}</h4>
-                  <p>{ishtirikchilar.degree}</p>
+                  <p>{ishtirikchilar.degree} </p>
                 </div>
               </div>
             ))}
